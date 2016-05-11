@@ -7,6 +7,8 @@
 package asgn2Passengers;
 
 
+//Written by Lucy
+
 /**
  * Passenger is an abstract class specifying the basic state of an airline passenger,  
  * and providing methods to set and access that state. A passenger is created upon booking, 
