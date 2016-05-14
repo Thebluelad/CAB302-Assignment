@@ -60,6 +60,7 @@ public abstract class Passenger {
 	protected int confirmationTime;
 	protected int departureTime; 
 	
+	//Written by Lucy
 	
 	/**
 	 * Passenger Constructor 
