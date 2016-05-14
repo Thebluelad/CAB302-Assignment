@@ -6,7 +6,6 @@
  */
 package asgn2Passengers;
 
-//Written by Lucy
 
 /**
  * Passenger is an abstract class specifying the basic state of an airline passenger,  
@@ -72,17 +71,8 @@ public abstract class Passenger {
 	 * @throws PassengerException if (bookingTime < 0) OR (departureTime <= 0) 
 	 * OR (departureTime < bookingTime) 
 	 */
-	/**
-	 * @author lucy 
-	 */
 	public Passenger(int bookingTime, int departureTime) throws PassengerException  {
 		//Stuff here 
-		this.bookingTime = bookingTime;
-		this.departureTime = departureTime;
-		if (this.bookingTime < 0 || this.departureTime <= 0 || this.departureTime < this.bookingTime )
-		{
-			throw new PassengerException("Error");
-		}
 		this.passID = "" + Passenger.index; 
 		Passenger.index++; 
 		//Stuff here 
@@ -98,6 +88,7 @@ public abstract class Passenger {
 	/**
 	 * Transition passenger to New<br>
 	 * PRE: isConfirmed(this)<br>
+	 * POST: isNew(this) AND this.getBookingTime() == cancellationTime<br>
 	 * <ul>
 	 * <li>cancelSeat: Confirmed -> New; up until departureTime</li>
 	 * </ul>
@@ -112,15 +103,18 @@ public abstract class Passenger {
 	 *         isFlown(this) OR (cancellationTime < 0) OR (departureTime < cancellationTime)
 	 */
 	public void cancelSeat(int cancellationTime) throws PassengerException {
-		
+
 	}
 
 	/**
 	 * Transition passenger to Confirmed seat<br>
 	 * PRE: isNew(this) OR inQueue(this)<br>
+	 * POST: isConfirmed(this) AND this.getConfirmationTime() == confirmationTime AND <br>
+	 * 	     this.getDepartureTime() == departureTime<br>
 	 * <ul>
 	 * <li>confirmSeat: New -> Confirmed</li>
 	 * <li>confirmSeat: Queued -> Confirmed; up until departureTime</li> 
+	 * <li>if isQueued(this), then POST: this.getExitQueueTime() == confirmationTime</li>
 	 * </ul>
 	 * 
 	 * @param confirmationTime <code>int</code> day when seat is confirmed
@@ -135,6 +129,7 @@ public abstract class Passenger {
 	/**
 	 * Transition passenger to Flown<br>
 	 * PRE: isConfirmed(this)<br>
+	 * POST: isFlown(this) AND this.getDepartureTime() == departureTime<br> 
 	 * <ul>
 	 * <li>flyPassenger:Confirmed -> Flown; finalised on departureTime</li>
 	 * </ul>
@@ -153,7 +148,6 @@ public abstract class Passenger {
 	 * @return the bookingTime
 	 */
 	public int getBookingTime() {
-		return this.bookingTime;
 		
 	}
 
@@ -164,7 +158,7 @@ public abstract class Passenger {
 	 * @return the confirmationTime
 	 */
 	public int getConfirmationTime() {
-		return this.confirmationTime;
+		
 	}
 
 	/**
@@ -173,7 +167,7 @@ public abstract class Passenger {
 	 * @return the departureTime
 	 */
 	public int getDepartureTime() {
-		return this.departureTime;
+		
 	}
 	
 	/**
@@ -182,7 +176,7 @@ public abstract class Passenger {
 	 * @return the enterQueueTime
 	 */
 	public int getEnterQueueTime() {
-		return this.enterQueueTime;
+		
 	}
 
 	/**
@@ -191,7 +185,7 @@ public abstract class Passenger {
 	 * @return the exitQueueTime
 	 */
 	public int getExitQueueTime() {
-		return this.exitQueueTime;
+		
 	}
 
 	/**
@@ -200,7 +194,7 @@ public abstract class Passenger {
 	 * @return the passID
 	 */
 	public String getPassID() {
-		return this.passID;
+		
 	}
 
 	/**
@@ -209,7 +203,7 @@ public abstract class Passenger {
 	 * @return <code>boolean</code> true if Confirmed state; false otherwise 
 	 */
 	public boolean isConfirmed() {
-	
+		
 	}
 		
 	/**
@@ -258,6 +252,8 @@ public abstract class Passenger {
 	/**
 	 * Transition passenger to Queued<br>
 	 * PRE: isNew(this)<br>
+	 * POST: isQueued(this) AND this.getEnterQueueTime() == queueTime AND <br>
+	 * this.getDepartureTime == departureTime<br>
 	 * <ul>
 	 * <li>queuePassenger: New -> Queued</li>
 	 * </ul>
@@ -277,9 +273,11 @@ public abstract class Passenger {
 	/**
 	 * Transition passenger to Refused<br>
 	 * PRE: isNew(this) OR isQueued(this) <br>
+	 * POST: isRefused(this)
 	 * <ul>
 	 * <li>refusePassenger:New -> Refused</li> 
      * <li>refusePassenger:Queued -> Refused; finalised on departureTime</li> 
+     * <li>if isQueued(this), then POST: this.getExitQueueTime() == refusalTime</li>
      * </ul>
      * 
 	 * @param refusalTime <code>int</code> holding refusal time  
