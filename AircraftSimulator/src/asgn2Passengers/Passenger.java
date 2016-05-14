@@ -73,6 +73,12 @@ public abstract class Passenger {
 	 */
 	public Passenger(int bookingTime, int departureTime) throws PassengerException  {
 		//Stuff here 
+		this.bookingTime = bookingTime;
+		this.departureTime = departureTime;
+		if (this.bookingTime < 0 || this.departureTime <= 0 || this.departureTime < this.bookingTime )
+		{
+			throw new PassengerException("Error");
+		}
 		this.passID = "" + Passenger.index; 
 		Passenger.index++; 
 		//Stuff here 
@@ -148,7 +154,7 @@ public abstract class Passenger {
 	 * @return the bookingTime
 	 */
 	public int getBookingTime() {
-		
+		return this.bookingTime;
 	}
 
 	/**
@@ -158,7 +164,7 @@ public abstract class Passenger {
 	 * @return the confirmationTime
 	 */
 	public int getConfirmationTime() {
-		
+		return this.confirmationTime;
 	}
 
 	/**
@@ -167,7 +173,7 @@ public abstract class Passenger {
 	 * @return the departureTime
 	 */
 	public int getDepartureTime() {
-		
+		return this.departureTime;
 	}
 	
 	/**
@@ -176,7 +182,7 @@ public abstract class Passenger {
 	 * @return the enterQueueTime
 	 */
 	public int getEnterQueueTime() {
-		
+		return this.enterQueueTime;
 	}
 
 	/**
@@ -185,7 +191,7 @@ public abstract class Passenger {
 	 * @return the exitQueueTime
 	 */
 	public int getExitQueueTime() {
-		
+		return this.exitQueueTime;
 	}
 
 	/**
@@ -194,7 +200,7 @@ public abstract class Passenger {
 	 * @return the passID
 	 */
 	public String getPassID() {
-		
+		return this.passID;
 	}
 
 	/**
@@ -203,7 +209,14 @@ public abstract class Passenger {
 	 * @return <code>boolean</code> true if Confirmed state; false otherwise 
 	 */
 	public boolean isConfirmed() {
-		
+		if (confirmed)
+		{
+			return this.confirmed;
+		}
+		else
+		{
+			return false;
+		}
 	}
 		
 	/**
