@@ -34,6 +34,9 @@ import asgn2Simulators.Log;
  * @author hogan
  *
  */
+
+//Written by Matt
+
 public abstract class Aircraft {
 
 	protected int firstCapacity;
@@ -65,7 +68,21 @@ public abstract class Aircraft {
 	 * @throws AircraftException if isNull(flightCode) OR (departureTime <=0) OR ({first,business,premium,economy} <0)
 	 */
 	public Aircraft(String flightCode,int departureTime, int first, int business, int premium, int economy) throws AircraftException {
-		//Lots here 
+		//The exception throw
+		if (flightCode == null || departureTime <= 0 || first < 0 || business < 0 || premium < 0 || economy < 0)
+		{
+			throw new AircraftException("Aircraft Exception");
+		}
+		
+		//Setting all the initial values based on the input
+		this.flightCode = flightCode;
+		this.departureTime = departureTime;
+		this.numFirst += first;
+		this.numBusiness += business;
+		this.numPremium += premium;
+		this.numEconomy += economy;
+		
+		//Given
 		this.status = "";
 	}
 	
@@ -80,9 +97,22 @@ public abstract class Aircraft {
 	 * @throws AircraftException if <code>Passenger</code> is not recorded in aircraft seating 
 	 */
 	public void cancelBooking(Passenger p,int cancellationTime) throws PassengerException, AircraftException {
-		//Stuff here
+		//PassengerException - if isNew(this) OR isQueued(this) OR isRefused(this) OR isFlown(this) OR (cancellationTime < 0) OR (departureTime < cancellationTime)
+		if (!p.isConfirmed() || p.isNew() || p.isQueued() || p.isRefused() || p.isFlown() || cancellationTime < 0 || this.departureTime < cancellationTime) //Might need some more conditions
+		{
+			throw new PassengerException("Invalid cancellation time");
+		}
+		
+		if (!this.seats.contains(p))
+		{
+			throw new AircraftException("No booking exists for this passenger");
+		}
+		else
+		{
+			this.seats.remove(p);
+			//I feel like I need to remove them from the counts (numFirst, numBusiness, etc.) as well but not sure how to get the booking type
+		}
 		this.status += Log.setPassengerMsg(p,"C","N");
-		//Stuff here
 	}
 
 	/**

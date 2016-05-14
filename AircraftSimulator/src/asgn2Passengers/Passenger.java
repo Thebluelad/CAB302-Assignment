@@ -6,7 +6,6 @@
  */
 package asgn2Passengers;
 
-
 //Written by Lucy
 
 /**
