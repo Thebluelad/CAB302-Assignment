@@ -402,6 +402,35 @@ public abstract class Aircraft {
 		//case economy {}
 		//case business {}
 		//case premium {}
+		
+		for (int i = 0; i < this.seats.size(); i++)
+		{
+			if (this.seats.get(i) instanceof Business)
+			{
+				if (this.numFirst < this.firstCapacity)
+				{
+					this.seats.get(i).upgrade();
+				}
+			}
+			
+			if (this.seats.get(i) instanceof Premium)
+			{
+				if (this.numBusiness < this.businessCapacity)
+				{
+					this.seats.get(i).upgrade();
+				}
+			}
+			
+			if (this.seats.get(i) instanceof Economy)
+			{
+				if (this.numPremium < this.premiumCapacity)
+				{
+					this.seats.get(i).upgrade();
+				}
+			}
+			
+		}
+		
 	}
 
 	/**
