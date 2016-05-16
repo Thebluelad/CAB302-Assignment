@@ -21,6 +21,12 @@ public class Business extends Passenger {
 	 */
 	public Business(int bookingTime, int departureTime) throws PassengerException {
 		//Stuff here
+		this.bookingTime = bookingTime;
+		this.departureTime = departureTime;
+		if (bookingTime < 0 || departureTime < 0 || departureTime < bookingTime)
+		{
+			throw new PassengerException("Error");
+		}
 		this.passID = "J:" + this.passID;
 	}
 	
