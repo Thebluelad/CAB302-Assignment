@@ -381,6 +381,7 @@ public abstract class Aircraft {
 				if (this.numFirst < this.firstCapacity)
 				{
 					this.seats.get(i).upgrade();
+					//Still need to take from the seats and re-add at the end.
 				}
 			}
 			
@@ -398,8 +399,7 @@ public abstract class Aircraft {
 				{
 					this.seats.get(i).upgrade();
 				}
-			}
-			
+			}	
 		}
 		
 	}
