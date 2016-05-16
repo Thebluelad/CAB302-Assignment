@@ -373,35 +373,6 @@ public abstract class Aircraft {
 	 * where possible to Premium.  
 	 */
 	public void upgradeBookings() { 
-		//Stuff here
-		//for (all passengers except first)
-		//if (space available in next class up)
-		//upgrade
-		//end for
-		
-		//Where subclass is the booking type (First, economy, business, premium)
-		//for each (subclass)
-		// if (space exists in the better class)
-		// 		upgrade;
-		//for each (subclass)
-		// if (space exists in the better class)
-		// 		upgrade;
-		//for each (subclass)
-		// if (space exists in the better class)
-		// 		upgrade;
-		//for each (subclass)
-		// if (space exists in the better class)
-		// 		upgrade;
-		
-		//or
-		
-		//Where object type is the name of the class
-		//for each (passenger)
-		//switch (object type)
-		//case first {}
-		//case economy {}
-		//case business {}
-		//case premium {}
 		
 		for (int i = 0; i < this.seats.size(); i++)
 		{
@@ -459,3 +430,54 @@ public abstract class Aircraft {
 		return msg + p.noSeatsMsg(); 
 	}
 }
+
+//Some notes for me on the upgradePassengers function
+		//for (all passengers except first)
+		//if (space available in next class up)
+		//upgrade
+		//end for
+		
+		//Where subclass is the booking type (First, economy, business, premium)
+		//for each (subclass)
+		// if (space exists in the better class)
+		// 		upgrade;
+		//for each (subclass)
+		// if (space exists in the better class)
+		// 		upgrade;
+		//for each (subclass)
+		// if (space exists in the better class)
+		// 		upgrade;
+		//for each (subclass)
+		// if (space exists in the better class)
+		// 		upgrade;
+		
+		//or
+		
+		//Where object type is the name of the class
+		//for each (passenger)
+		//switch (object type)
+		//case first {}
+		//case economy {}
+		//case business {}
+		//case premium {}
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
