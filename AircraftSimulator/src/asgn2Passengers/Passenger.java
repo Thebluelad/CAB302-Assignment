@@ -110,7 +110,13 @@ public abstract class Passenger {
 	 *         isFlown(this) OR (cancellationTime < 0) OR (departureTime < cancellationTime)
 	 */
 	public void cancelSeat(int cancellationTime) throws PassengerException {
-		
+		this.confirmed = false;
+		this.newState = true;
+		this.exitQueueTime = cancellationTime;
+		if (this.isNew() || this.isQueued() || this.isRefused() || this.isFlown() || cancellationTime < 0 || departureTime < cancellationTime)
+		{
+			throw new PassengerException("Error");
+		}
 	}
 
 	/**
@@ -130,7 +136,20 @@ public abstract class Passenger {
 	 * 		   OR (confirmationTime < 0) OR (departureTime < confirmationTime)
 	 */
 	public void confirmSeat(int confirmationTime, int departureTime) throws PassengerException {
-	
+		this.newState = false;
+		this.confirmed = true;
+		this.confirmationTime = confirmationTime;
+		this.departureTime = departureTime;
+		if (this.inQueue = true)
+		{
+			this.inQueue = false;
+			this.exitQueueTime = confirmationTime;
+		}
+		
+		if (this.isConfirmed() || this.isRefused() || this.isFlown() || confirmationTime < 0 || departureTime < confirmationTime)
+		{
+			throw new PassengerException("Error");
+		}
 	}
 
 	/**
@@ -387,7 +406,14 @@ public abstract class Passenger {
 	 * @return <code>boolean</code> true if was Confirmed state; false otherwise
 	 */
 	public boolean wasConfirmed() {
-		
+		if 	(this.confirmationTime < 0)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
 	}
 
 	/**
@@ -396,7 +422,14 @@ public abstract class Passenger {
 	 * @return <code>boolean</code> true if was Queued state; false otherwise
 	 */
 	public boolean wasQueued() {
-		
+		if (this.enterQueueTime < 0 || this.exitQueueTime < 0)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
 	}
 	
 	/**
