@@ -165,7 +165,13 @@ public abstract class Passenger {
 	 *         isFlown(this) OR (departureTime <= 0)
 	 */
 	public void flyPassenger(int departureTime) throws PassengerException {
-		
+		this.confirmed = false;
+		this.flown = true;
+		this.departureTime = departureTime;
+		if (this.isNew() || this.isQueued() || this.isRefused() || this.isFlown() || departureTime <= 0)
+		{
+			throw new PassengerException("Error");
+		}
 	}
 
 	/**
