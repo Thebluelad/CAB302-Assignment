@@ -196,7 +196,10 @@ public abstract class Aircraft {
 	 * See {@link asgn2Passengers.Passenger#flyPassenger(int)}. 
 	 */
 	public void flyPassengers(int departureTime) throws PassengerException { 
-		//Stuff here
+		for (int i = 0; i < this.seats.size(); i++)
+		{
+			this.seats.get(i).flyPassenger(departureTime);
+		}
 	}
 	
 	/**
