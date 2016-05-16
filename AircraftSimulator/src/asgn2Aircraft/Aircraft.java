@@ -318,9 +318,31 @@ public abstract class Aircraft {
 	 * @param p <code>Passenger</code> to be Confirmed
 	 * @return <code>boolean</code> true if seats in Class(p); false otherwise
 	 */
-	public boolean seatsAvailable(Passenger p) {		
-		//Stuff here
-		//Not entirely sure how to tell p's class yet.
+	public boolean seatsAvailable(Passenger p) {
+		if (p instanceof Business)
+		{
+			if (this.numBusiness < businessCapacity)
+				return true;
+		}
+		
+		if (p instanceof Premium)
+		{
+			if (this.numPremium < premiumCapacity)
+				return true;
+		}
+		
+		if (p instanceof First)
+		{
+			if (this.numFirst < firstCapacity)
+				return true;
+		}
+		
+		if (p instanceof Economy)
+		{
+			if (this.numEconomy < economyCapacity)
+				return true;
+		}
+		return false;
 	}
 
 	/* 
