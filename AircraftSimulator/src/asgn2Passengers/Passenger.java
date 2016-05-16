@@ -309,16 +309,14 @@ public abstract class Passenger {
 	 *         isFlown(this) OR (queueTime < 0) OR (departureTime < queueTime)
 	 */
 	public void queuePassenger(int queueTime, int departureTime) throws PassengerException {
-		this.newState = true;
+		this.newState = false;
 		this.inQueue = true;
 		this.enterQueueTime = queueTime;
 		this.departureTime = departureTime;
 		if(this.isQueued() || this.isConfirmed() || this.isRefused() || this.isFlown() || queueTime < 0 || departureTime < queueTime)
-			{ 
-				throw new PassengerException("Error");
-			}
+		{ 
+			throw new PassengerException("Error");
 		}
-		
 	}
 	
 	/**
@@ -336,19 +334,15 @@ public abstract class Passenger {
 	 * 			OR (refusalTime < 0) OR (refusalTime < bookingTime)
 	 */
 	public void refusePassenger(int refusalTime) throws PassengerException {
-		if (this.isNew() || this.isQueued())
+		this.newState = false;
+		this.refused = true;
+		if (this.isQueued())
 		{
-			if (this.isRefused())
-			{
-				this.refused= true;
-	
-				if (this.isQueued())
-				{
-					refusalTime = this.getExitQueueTime();
-				}
-			}
+			this.exitQueueTime = refusalTime;
+			this.inQueue = false;
 		}
-		else if(this.isConfirmed() || this.isRefused() || this.isFlown() || refusalTime < 0 || refusalTime < bookingTime)
+		
+		if(this.isConfirmed() || this.isRefused() || this.isFlown() || refusalTime < 0 || refusalTime < bookingTime)
 		{ 
 			throw new PassengerException("Error");
 		}
