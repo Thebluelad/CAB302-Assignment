@@ -44,6 +44,8 @@ public class Business extends Passenger {
 
 	@Override
 	public Passenger upgrade() {
-	
+		First upgraded = new First();
+		upgraded.copyPassengerState(this);
+		return upgraded;
 	}
 }
