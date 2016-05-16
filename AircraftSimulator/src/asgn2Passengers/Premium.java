@@ -39,7 +39,9 @@ public class Premium extends Passenger {
 
 	@Override
 	public Passenger upgrade() {
-		
+		Business upgraded = new Business();
+		upgraded.copyPassengerState(this);
+		return upgraded;
 	}
 	
 	@Override
