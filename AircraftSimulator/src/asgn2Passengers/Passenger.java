@@ -311,7 +311,9 @@ public abstract class Passenger {
 	public void queuePassenger(int queueTime, int departureTime) throws PassengerException {
 		if (this.isNew())
 			{
-				queuePassenger(queueTime, departureTime);
+			if (this.isQueued() && this.getEnterQueueTime() == queueTime && this.getDepartureTime() == departureTime)
+			{
+				this.inQueue = true;
 			}
 		else if(this.isQueued() || this.isConfirmed() || this.isRefused() || this.isFlown() || queueTime < 0 || departureTime < queueTime)
 			{ 
@@ -336,7 +338,22 @@ public abstract class Passenger {
 	 * 			OR (refusalTime < 0) OR (refusalTime < bookingTime)
 	 */
 	public void refusePassenger(int refusalTime) throws PassengerException {
-		
+		if (this.isNew() || this.isQueued())
+		{
+			if (this.isRefused())
+			{
+				this.refused= true;
+	
+				if (this.isQueued())
+				{
+					refusalTime = this.getExitQueueTime();
+				}
+			}
+		}
+		else if(this.isConfirmed() || this.isRefused() || this.isFlown() || refusalTime < 0 || refusalTime < bookingTime)
+		{ 
+			throw new PassengerException("Error");
+		}
 	}
 	
 	/* (non-Javadoc) (Supplied) 
