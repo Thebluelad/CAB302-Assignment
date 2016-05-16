@@ -21,6 +21,12 @@ public class First extends Passenger {
 	 */
 	public First(int bookingTime, int departureTime) throws PassengerException {
 		//Call here 
+		this.bookingTime = bookingTime;
+		this.departureTime = departureTime;
+		if (bookingTime < 0 || departureTime < 0 || departureTime < bookingTime)
+		{
+			throw new PassengerException("Error");
+		}
 		this.passID = "F:" + this.passID;
 	}
 	
