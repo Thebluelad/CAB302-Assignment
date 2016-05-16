@@ -309,11 +309,11 @@ public abstract class Passenger {
 	 *         isFlown(this) OR (queueTime < 0) OR (departureTime < queueTime)
 	 */
 	public void queuePassenger(int queueTime, int departureTime) throws PassengerException {
-		for (isNew(this))
-		{
-			new.queuePassenger(queueTime, departureTime);
-			
-			if (isQueued(this) || isConfirmed(this) || isRefused(this) || isFlown(this) || queueTime < 0 || departureTime < queueTime)
+		if (this.isNew())
+			{
+				queuePassenger(queueTime, departureTime);
+			}
+		else if(this.isQueued() || this.isConfirmed() || this.isRefused() || this.isFlown() || queueTime < 0 || departureTime < queueTime)
 			{ 
 				throw new PassengerException("Error");
 			}
