@@ -33,5 +33,10 @@ public class PassengerTests {
 		assertTrue(test.getBookingTime() == cancellationTime);
 	}
 	
-	//Test the passenger exception throw for cancellationTime
+	//Need to do exception throw tests
+	@Test (expected = asgn2Passengers.PassengerException.class)
+	public void cancelSeatTestExceptionThrowBookingTime() throws PassengerException {
+		
+	}
+		
 }
