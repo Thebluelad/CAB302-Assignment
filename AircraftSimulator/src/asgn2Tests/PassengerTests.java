@@ -13,6 +13,8 @@ public class PassengerTests {
 	//A note to lucy is that the subclass constructors should call the super class
 	//Probably why these tests are failing.
 	
+	//Now begins the cancelSeat Tests
+	
 	@Test
 	public void cancelSeatTestIsNew() throws PassengerException {
 		int bookingTime = 1;
@@ -104,6 +106,8 @@ public class PassengerTests {
 		//Should throw the exception because the departureTime is less than the cancellationTime
 		test.cancelSeat(cancellationTime);
 	}
+	
+	//Now begins the confirmSeat Tests
 	
 	@Test
 	public void confirmSeatIsNew() throws PassengerException {
@@ -220,6 +224,9 @@ public class PassengerTests {
 		test.confirmSeat(confirmationTime, departureTime);
 	}
 	
+	
+	//Now begins the flyPassenger Tests
+	
 	@Test
 	public void flyPassengerIsConfirmed() throws PassengerException {
 		int bookingTime = 1;
@@ -292,5 +299,57 @@ public class PassengerTests {
 		int departureTime = 0;
 		Economy test = new Economy(bookingTime, departureTime);
 		test.flyPassenger(departureTime);
+	}
+	
+	//Now begins the queuePassenger Tests
+	
+	@Test
+	public void queuePassengerIsNew() throws PassengerException {
+		int bookingTime = 1;
+		int queueTime = 2;
+		int departureTime = 3;
+		Economy test = new Economy(bookingTime, departureTime);
+		test.queuePassenger(queueTime, departureTime);
+		assertTrue(test.isNew() == false);
+	}
+	
+	@Test
+	public void queuePassengerIsQueued() throws PassengerException {
+		int bookingTime = 1;
+		int queueTime = 2;
+		int departureTime = 3;
+		Economy test = new Economy(bookingTime, departureTime);
+		test.queuePassenger(queueTime, departureTime);
+		assertTrue(test.isQueued() == false);
+	}
+	
+	@Test
+	public void queuePassengerEnterQueueTime() throws PassengerException {
+		int bookingTime = 1;
+		int queueTime = 2;
+		int departureTime = 3;
+		Economy test = new Economy(bookingTime, departureTime);
+		test.queuePassenger(queueTime, departureTime);
+		assertTrue(test.getEnterQueueTime() == queueTime);
+	}
+	
+	@Test
+	public void queuePassengerDepartureTime() throws PassengerException {
+		int bookingTime = 1;
+		int queueTime = 2;
+		int departureTime = 3;
+		Economy test = new Economy(bookingTime, departureTime);
+		test.queuePassenger(queueTime, departureTime);
+		assertTrue(test.getDepartureTime() == departureTime);
+	}
+	
+	@Test
+	public void queuePassengerExceptionThrow() throws PassengerException {
+		int bookingTime = 1;
+		int queueTime = 2;
+		int departureTime = 3;
+		Economy test = new Economy(bookingTime, departureTime);
+		test.queuePassenger(queueTime, departureTime);
+		assertTrue(test.isNew() == false);
 	}
 }
