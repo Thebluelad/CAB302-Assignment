@@ -226,16 +226,11 @@ public class PassengerTests {
 	
 	//Now begins the flyPassenger Tests
 	
-	@Test //(expected = asgn2Passengers.PassengerException)
+	@Test
 	public void flyPassengerIsConfirmed() throws PassengerException {
 		int bookingTime = 1;
 		int departureTime = 3;
 		Economy test = new Economy(bookingTime, departureTime);
-		System.out.println(test.isNew());
-		System.out.println(test.isQueued());
-		System.out.println(test.isRefused());
-		System.out.println(test.isFlown());
-		System.out.println(test.getDepartureTime());
 		test.flyPassenger(departureTime);
 		assertTrue(test.isConfirmed() == false);
 	}
@@ -262,9 +257,9 @@ public class PassengerTests {
 	public void flyPassengerExceptionThrowIsNew() throws PassengerException {
 		int bookingTime = 1;
 		int departureTime = 3;
-		int confirmationTime = 2;
+		int cancellationTime = 2;
 		Economy test = new Economy(bookingTime, departureTime);
-		test.confirmSeat(confirmationTime, departureTime);
+		test.cancelSeat(cancellationTime);
 		test.flyPassenger(departureTime);
 	}
 	
@@ -324,7 +319,7 @@ public class PassengerTests {
 		int departureTime = 3;
 		Economy test = new Economy(bookingTime, departureTime);
 		test.queuePassenger(queueTime, departureTime);
-		assertTrue(test.isQueued() == false);
+		assertTrue(test.isQueued() == true);
 	}
 	
 	@Test
