@@ -76,8 +76,7 @@ public abstract class Passenger {
 		//Stuff here
 		this.bookingTime = bookingTime;
 		this.departureTime = departureTime;
-		if (this.bookingTime < 0 || this.departureTime <= 0 || this.departureTime < this.bookingTime )
-		{
+		if (this.bookingTime < 0 || this.departureTime <= 0 || this.departureTime < this.bookingTime ){
 			throw new PassengerException("Error");
 		}
 		this.passID = "" + Passenger.index; 
@@ -111,12 +110,11 @@ public abstract class Passenger {
 	 */
 	public void cancelSeat(int cancellationTime) throws PassengerException {
 		this.confirmed = false;
-		this.newState = true;
 		this.exitQueueTime = cancellationTime;
-		if (this.isNew() || this.isQueued() || this.isRefused() || this.isFlown() || cancellationTime < 0 || departureTime < cancellationTime)
-		{
+		if (this.newState || this.inQueue || this.refused || this.flown || cancellationTime < 0 || departureTime < cancellationTime){
 			throw new PassengerException("Error");
 		}
+		this.newState = true;
 	}
 
 	/**
@@ -137,19 +135,18 @@ public abstract class Passenger {
 	 */
 	public void confirmSeat(int confirmationTime, int departureTime) throws PassengerException {
 		this.newState = false;
-		this.confirmed = true;
-		this.confirmationTime = confirmationTime;
+	
 		this.departureTime = departureTime;
-		if (this.inQueue = true)
-		{
+		if (this.inQueue = true){
 			this.inQueue = false;
 			this.exitQueueTime = confirmationTime;
 		}
 		
-		if (this.isConfirmed() || this.isRefused() || this.isFlown() || confirmationTime < 0 || departureTime < confirmationTime)
-		{
+		if (this.confirmed || this.refused|| this.flown || confirmationTime < 0 || departureTime < confirmationTime){
 			throw new PassengerException("Error");
 		}
+		this.confirmed = true;
+		this.confirmationTime = confirmationTime;
 	}
 
 	/**
@@ -167,8 +164,7 @@ public abstract class Passenger {
 	public void flyPassenger(int departureTime) throws PassengerException {
 		this.confirmed = false;
 		this.departureTime = departureTime;
-		if (this.newState || this.inQueue || this.refused || this.flown || this.departureTime <= 0)
-		{
+		if (this.newState || this.inQueue || this.refused || this.flown || this.departureTime <= 0){
 			throw new PassengerException("Error");
 		}
 		this.flown = true;
@@ -336,13 +332,12 @@ public abstract class Passenger {
 	 */
 	public void queuePassenger(int queueTime, int departureTime) throws PassengerException {
 		this.newState = false;
-		this.inQueue = true;
 		this.enterQueueTime = queueTime;
 		this.departureTime = departureTime;
-		if(this.isQueued() || this.isConfirmed() || this.isRefused() || this.isFlown() || queueTime < 0 || departureTime < queueTime)
-		{ 
+		if(this.inQueue || this.confirmed || this.refused || this.flown || queueTime < 0 || departureTime < queueTime){ 
 			throw new PassengerException("Error");
 		}
+		this.inQueue = true;
 	}
 	
 	/**
@@ -361,17 +356,15 @@ public abstract class Passenger {
 	 */
 	public void refusePassenger(int refusalTime) throws PassengerException {
 		this.newState = false;
-		this.refused = true;
-		if (this.isQueued())
-		{
+		if (this.isQueued()){
 			this.exitQueueTime = refusalTime;
 			this.inQueue = false;
 		}
 		
-		if(this.isConfirmed() || this.isRefused() || this.isFlown() || refusalTime < 0 || refusalTime < bookingTime)
-		{ 
+		if(this.confirmed || this.refused || this.flown || refusalTime < 0 || refusalTime < bookingTime){ 
 			throw new PassengerException("Error");
 		}
+		this.refused = true;
 	}
 	
 	/* (non-Javadoc) (Supplied) 
@@ -413,8 +406,7 @@ public abstract class Passenger {
 	 * @return <code>boolean</code> true if was Confirmed state; false otherwise
 	 */
 	public boolean wasConfirmed() {
-		if 	(this.confirmationTime < 0)
-		{
+		if 	(this.confirmationTime < 0){
 			return true;
 		}
 		else
@@ -429,8 +421,7 @@ public abstract class Passenger {
 	 * @return <code>boolean</code> true if was Queued state; false otherwise
 	 */
 	public boolean wasQueued() {
-		if (this.enterQueueTime < 0 || this.exitQueueTime < 0)
-		{
+		if (this.enterQueueTime < 0 || this.exitQueueTime < 0){
 			return true;
 		}
 		else
