@@ -22,12 +22,7 @@ public class Economy extends Passenger {
 	public Economy(int bookingTime,int departureTime) throws PassengerException {
 		//A note to lucy is that the subclass constructor should probably call the super class.
 		//(This applies to this class and the other subclasses of Passenger)
-		this.bookingTime = bookingTime;
-		this.departureTime = departureTime;
-		if (bookingTime < 0 || departureTime < 0 || departureTime < bookingTime)
-		{
-			throw new PassengerException("Error");
-		}
+		super(bookingTime, departureTime);
 		//Stuff here
 		this.passID = "Y:" + this.passID;
 	}
