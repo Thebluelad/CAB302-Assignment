@@ -111,7 +111,7 @@ public abstract class Passenger {
 	public void cancelSeat(int cancellationTime) throws PassengerException {
 		this.confirmed = false;
 		//The following line should probably be this.bookingTime instead of exitQueueTime
-		this.exitQueueTime = cancellationTime;
+		this.bookingTime = cancellationTime;
 		if (this.newState || this.inQueue || this.refused || this.flown || cancellationTime < 0 || departureTime < cancellationTime) {
 			throw new PassengerException("Error");
 		}
@@ -136,7 +136,6 @@ public abstract class Passenger {
 	 */
 	public void confirmSeat(int confirmationTime, int departureTime) throws PassengerException {
 		this.newState = false;
-	
 		this.departureTime = departureTime;
 		if (this.inQueue = true) {
 			this.inQueue = false;
