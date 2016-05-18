@@ -351,4 +351,16 @@ public class PassengerTests {
 		test.queuePassenger(queueTime, departureTime);
 		assertTrue(test.isNew() == false);
 	}
+	
+	//Now begins the refusePassenger Tests
+	//Test refusePassenger()
+	
+	//Now begins the wasQueued Tests
+	//Test wasQueued()
+	
+	//Now begins the upgrade Tests
+	//Test upgrade()
+	
+	//Now begins the copyPassengerState Tests
+	//Test copyPassengerState()
 }
