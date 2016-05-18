@@ -21,12 +21,7 @@ public class Premium extends Passenger {
 	 */
 	public Premium(int bookingTime,int departureTime) throws PassengerException {
 		//Stuff here
-		this.bookingTime = bookingTime;
-		this.departureTime = departureTime;
-		if (bookingTime < 0 || departureTime < 0 || departureTime < bookingTime)
-		{
-			throw new PassengerException("Error");
-		}
+		super(bookingTime, departureTime);
 		this.passID = "P:" + this.passID;
 	}
 	
