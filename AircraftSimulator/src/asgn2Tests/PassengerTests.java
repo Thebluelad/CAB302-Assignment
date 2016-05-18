@@ -5,7 +5,6 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 import asgn2Passengers.Economy;
-import asgn2Passengers.Passenger;
 import asgn2Passengers.PassengerException;
 
 public class PassengerTests {
@@ -227,11 +226,16 @@ public class PassengerTests {
 	
 	//Now begins the flyPassenger Tests
 	
-	@Test
+	@Test //(expected = asgn2Passengers.PassengerException)
 	public void flyPassengerIsConfirmed() throws PassengerException {
 		int bookingTime = 1;
 		int departureTime = 3;
 		Economy test = new Economy(bookingTime, departureTime);
+		System.out.println(test.isNew());
+		System.out.println(test.isQueued());
+		System.out.println(test.isRefused());
+		System.out.println(test.isFlown());
+		System.out.println(test.getDepartureTime());
 		test.flyPassenger(departureTime);
 		assertTrue(test.isConfirmed() == false);
 	}

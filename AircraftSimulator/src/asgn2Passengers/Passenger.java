@@ -73,7 +73,7 @@ public abstract class Passenger {
 	 * OR (departureTime < bookingTime) 
 	 */
 	public Passenger(int bookingTime, int departureTime) throws PassengerException  {
-		//Stuff here 
+		//Stuff here
 		this.bookingTime = bookingTime;
 		this.departureTime = departureTime;
 		if (this.bookingTime < 0 || this.departureTime <= 0 || this.departureTime < this.bookingTime )
@@ -166,12 +166,12 @@ public abstract class Passenger {
 	 */
 	public void flyPassenger(int departureTime) throws PassengerException {
 		this.confirmed = false;
-		this.flown = true;
 		this.departureTime = departureTime;
-		if (this.isNew() || this.isQueued() || this.isRefused() || this.isFlown() || departureTime <= 0)
+		if (this.newState || this.inQueue || this.refused || this.flown || this.departureTime <= 0)
 		{
 			throw new PassengerException("Error");
 		}
+		this.flown = true;
 	}
 
 	/**
@@ -235,14 +235,15 @@ public abstract class Passenger {
 	 * @return <code>boolean</code> true if Confirmed state; false otherwise 
 	 */
 	public boolean isConfirmed() {
-		if (confirmed)
-		{
-			return this.confirmed;
-		}
-		else
-		{
-			return false;
-		}
+//		if (confirmed)
+//		{
+//			return this.confirmed;
+//		}
+//		else
+//		{
+//			return false;
+//		}
+		return this.confirmed;
 	}
 		
 	/**
