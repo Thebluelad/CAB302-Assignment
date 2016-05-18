@@ -111,7 +111,7 @@ public abstract class Passenger {
 	public void cancelSeat(int cancellationTime) throws PassengerException {
 		this.confirmed = false;
 		this.exitQueueTime = cancellationTime;
-		if (this.newState || this.inQueue || this.refused || this.flown || cancellationTime < 0 || departureTime < cancellationTime){
+		if (this.newState || this.inQueue || this.refused || this.flown || cancellationTime < 0 || departureTime < cancellationTime) {
 			throw new PassengerException("Error");
 		}
 		this.newState = true;
@@ -137,12 +137,12 @@ public abstract class Passenger {
 		this.newState = false;
 	
 		this.departureTime = departureTime;
-		if (this.inQueue = true){
+		if (this.inQueue = true) {
 			this.inQueue = false;
 			this.exitQueueTime = confirmationTime;
 		}
 		
-		if (this.confirmed || this.refused|| this.flown || confirmationTime < 0 || departureTime < confirmationTime){
+		if (this.confirmed || this.refused|| this.flown || confirmationTime < 0 || departureTime < confirmationTime) {
 			throw new PassengerException("Error");
 		}
 		this.confirmed = true;
@@ -164,7 +164,7 @@ public abstract class Passenger {
 	public void flyPassenger(int departureTime) throws PassengerException {
 		this.confirmed = false;
 		this.departureTime = departureTime;
-		if (this.newState || this.inQueue || this.refused || this.flown || this.departureTime <= 0){
+		if (this.newState || this.inQueue || this.refused || this.flown || this.departureTime <= 0) {
 			throw new PassengerException("Error");
 		}
 		this.flown = true;
@@ -334,7 +334,7 @@ public abstract class Passenger {
 		this.newState = false;
 		this.enterQueueTime = queueTime;
 		this.departureTime = departureTime;
-		if(this.inQueue || this.confirmed || this.refused || this.flown || queueTime < 0 || departureTime < queueTime){ 
+		if(this.inQueue || this.confirmed || this.refused || this.flown || queueTime < 0 || departureTime < queueTime) { 
 			throw new PassengerException("Error");
 		}
 		this.inQueue = true;
@@ -356,12 +356,12 @@ public abstract class Passenger {
 	 */
 	public void refusePassenger(int refusalTime) throws PassengerException {
 		this.newState = false;
-		if (this.isQueued()){
+		if (this.isQueued()) {
 			this.exitQueueTime = refusalTime;
 			this.inQueue = false;
 		}
 		
-		if(this.confirmed || this.refused || this.flown || refusalTime < 0 || refusalTime < bookingTime){ 
+		if(this.confirmed || this.refused || this.flown || refusalTime < 0 || refusalTime < bookingTime) { 
 			throw new PassengerException("Error");
 		}
 		this.refused = true;
@@ -406,7 +406,7 @@ public abstract class Passenger {
 	 * @return <code>boolean</code> true if was Confirmed state; false otherwise
 	 */
 	public boolean wasConfirmed() {
-		if 	(this.confirmationTime < 0){
+		if 	(this.confirmationTime < 0) {
 			return true;
 		}
 		else
@@ -421,7 +421,7 @@ public abstract class Passenger {
 	 * @return <code>boolean</code> true if was Queued state; false otherwise
 	 */
 	public boolean wasQueued() {
-		if (this.enterQueueTime < 0 || this.exitQueueTime < 0){
+		if (this.enterQueueTime < 0 || this.exitQueueTime < 0) {
 			return true;
 		}
 		else
