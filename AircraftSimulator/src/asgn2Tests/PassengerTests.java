@@ -221,7 +221,76 @@ public class PassengerTests {
 	}
 	
 	@Test
-	public void flyPassenger() throws PassengerException {
-		
+	public void flyPassengerIsConfirmed() throws PassengerException {
+		int bookingTime = 1;
+		int departureTime = 3;
+		Economy test = new Economy(bookingTime, departureTime);
+		test.flyPassenger(departureTime);
+		assertTrue(test.isConfirmed() == false);
+	}
+	
+	@Test
+	public void flyPassengerIsFlown() throws PassengerException {
+		int bookingTime = 1;
+		int departureTime = 3;
+		Economy test = new Economy(bookingTime, departureTime);
+		test.flyPassenger(departureTime);
+		assertTrue(test.isFlown() == true);
+	}
+	
+	@Test
+	public void flyPassengerDepartureTime() throws PassengerException {
+		int bookingTime = 1;
+		int departureTime = 3;
+		Economy test = new Economy(bookingTime, departureTime);
+		test.flyPassenger(departureTime);
+		assertTrue(test.getDepartureTime() == departureTime);
+	}
+	
+	@Test (expected = asgn2Passengers.PassengerException.class)
+	public void flyPassengerExceptionThrowIsNew() throws PassengerException {
+		int bookingTime = 1;
+		int departureTime = 3;
+		int confirmationTime = 2;
+		Economy test = new Economy(bookingTime, departureTime);
+		test.confirmSeat(confirmationTime, departureTime);
+		test.flyPassenger(departureTime);
+	}
+	
+	@Test (expected = asgn2Passengers.PassengerException.class)
+	public void flyPassengerExceptionThrowIsQueued() throws PassengerException {
+		int bookingTime = 1;
+		int departureTime = 3;
+		int queueTime = 2;
+		Economy test = new Economy(bookingTime, departureTime);
+		test.queuePassenger(queueTime, departureTime);
+		test.flyPassenger(departureTime);
+	}
+	
+	@Test (expected = asgn2Passengers.PassengerException.class)
+	public void flyPassengerExceptionThrowIsRefused() throws PassengerException {
+		int bookingTime = 1;
+		int departureTime = 3;
+		int refusalTime = 2;
+		Economy test = new Economy(bookingTime, departureTime);
+		test.refusePassenger(refusalTime);
+		test.flyPassenger(departureTime);
+	}
+	
+	@Test (expected = asgn2Passengers.PassengerException.class)
+	public void flyPassengerExceptionThrowIsFlown() throws PassengerException {
+		int bookingTime = 1;
+		int departureTime = 3;
+		Economy test = new Economy(bookingTime, departureTime);
+		test.flyPassenger(departureTime);
+		test.flyPassenger(departureTime);
+	}
+	
+	@Test (expected = asgn2Passengers.PassengerException.class)
+	public void flyPassengerExceptionThrowDepartureTime() throws PassengerException {
+		int bookingTime = 1;
+		int departureTime = 0;
+		Economy test = new Economy(bookingTime, departureTime);
+		test.flyPassenger(departureTime);
 	}
 }
