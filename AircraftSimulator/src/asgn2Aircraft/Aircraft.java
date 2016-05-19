@@ -205,11 +205,12 @@ public abstract class Aircraft {
 	/**
 	 * Method to return an {@link asgn2Aircraft.Bookings} object containing the Confirmed 
 	 * booking status for this aircraft. 
-	 * 
+	 * 	
 	 * @return <code>Bookings</code> object containing the status.  
 	 */
 	public Bookings getBookings() {
 		 int total = numFirst + numBusiness + numPremium + numEconomy;
+		 //Available could be capacity minus total
 		 int available = this.firstCapacity + this.economyCapacity + this.businessCapacity + this.premiumCapacity;
 		return new Bookings(numFirst, numBusiness, numPremium, numEconomy, total, available);
 	}

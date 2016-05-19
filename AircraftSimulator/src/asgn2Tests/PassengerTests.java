@@ -342,18 +342,183 @@ public class PassengerTests {
 		assertTrue(test.getDepartureTime() == departureTime);
 	}
 	
-	@Test
-	public void queuePassengerExceptionThrow() throws PassengerException {
+	@Test (expected = asgn2Passengers.PassengerException.class)
+	public void queuePassengerExceptionThrowInQueue() throws PassengerException {
 		int bookingTime = 1;
 		int queueTime = 2;
 		int departureTime = 3;
 		Economy test = new Economy(bookingTime, departureTime);
 		test.queuePassenger(queueTime, departureTime);
-		assertTrue(test.isNew() == false);
+		
+		//Should throw an exception because the passenger is already in queue
+		test.queuePassenger(queueTime, departureTime);
+	}
+	
+	@Test (expected = asgn2Passengers.PassengerException.class)
+	public void queuePassengerExceptionThrowIsConfirmed() throws PassengerException {
+		int bookingTime = 1;
+		int confirmationTime = 2;
+		int queueTime = 2;
+		int departureTime = 3;
+		Economy test = new Economy(bookingTime, departureTime);
+		test.confirmSeat(confirmationTime, departureTime);
+		
+		//Should throw an exception because the passenger is already confirmed
+		test.queuePassenger(queueTime, departureTime);
+	}
+	
+	@Test (expected = asgn2Passengers.PassengerException.class)
+	public void queuePassengerExceptionThrowIsRefused() throws PassengerException {
+		int bookingTime = 1;
+		int refusalTime = 2;
+		int queueTime = 2;
+		int departureTime = 3;
+		Economy test = new Economy(bookingTime, departureTime);
+		test.refusePassenger(refusalTime);
+		
+		//Should throw an exception because the passenger is already refused
+		test.queuePassenger(queueTime, departureTime);
+	}
+	
+	@Test (expected = asgn2Passengers.PassengerException.class)
+	public void queuePassengerExceptionThrowIsFlown() throws PassengerException {
+		int bookingTime = 1;
+		int queueTime = 2;
+		int departureTime = 3;
+		Economy test = new Economy(bookingTime, departureTime);
+		test.flyPassenger(departureTime);
+		
+		//Should throw an exception because the passenger is already flown
+		test.queuePassenger(queueTime, departureTime);
+	}
+	
+	@Test (expected = asgn2Passengers.PassengerException.class)
+	public void queuePassengerExceptionThrowQueueTime() throws PassengerException {
+		int bookingTime = 1;
+		int queueTime = -1;
+		int departureTime = 3;
+		Economy test = new Economy(bookingTime, departureTime);
+		
+		//Should throw an exception because queueTime < 0
+		test.queuePassenger(queueTime, departureTime);
+	}
+	
+	@Test (expected = asgn2Passengers.PassengerException.class)
+	public void queuePassengerExceptionThrowQueueDeparture() throws PassengerException {
+		int bookingTime = 1;
+		int queueTime = 3;
+		int departureTime = 2;
+		Economy test = new Economy(bookingTime, departureTime);
+		
+		//Should throw an exception because departureTime < queueTime
+		test.queuePassenger(queueTime, departureTime);
 	}
 	
 	//Now begins the refusePassenger Tests
-	//Test refusePassenger()
+	
+	@Test
+	public void refusePassengerIsNew() throws PassengerException {
+		int bookingTime = 1;
+		int refusalTime = 2;
+		int departureTime = 3;
+		Economy test = new Economy(bookingTime, departureTime);
+		test.refusePassenger(refusalTime);
+		assertTrue(test.isNew() == false);
+	}
+	
+	@Test
+	public void refusePassengerIsQueued() throws PassengerException {
+		int bookingTime = 1;
+		int queueTime = 2;
+		int refusalTime = 3;
+		int departureTime = 4;
+		Economy test = new Economy(bookingTime, departureTime);
+		test.queuePassenger(queueTime, departureTime);
+		test.refusePassenger(refusalTime);
+		assertTrue(test.isQueued() == false);
+	}
+	
+	@Test
+	public void refusePassengerExitQueue() throws PassengerException {
+		int bookingTime = 1;
+		int queueTime = 2;
+		int refusalTime = 3;
+		int departureTime = 4;
+		Economy test = new Economy(bookingTime, departureTime);
+		test.queuePassenger(queueTime, departureTime);
+		test.refusePassenger(refusalTime);
+		assertTrue(test.getExitQueueTime() == refusalTime);
+	}
+	
+	@Test
+	public void refusePassengerIsRefused() throws PassengerException {
+		int bookingTime = 1;
+		int refusalTime = 2;
+		int departureTime = 3;
+		Economy test = new Economy(bookingTime, departureTime);
+		test.refusePassenger(refusalTime);
+		assertTrue(test.isRefused() == true);
+	}
+	
+	@Test (expected = asgn2Passengers.PassengerException.class)
+	public void refusePassengerExceptionThrowIsConfirmed() throws PassengerException {
+		int bookingTime = 1;
+		int confirmationTime = 2;
+		int refusalTime = 3;
+		int departureTime = 4;
+		Economy test = new Economy(bookingTime, departureTime);
+		test.confirmSeat(confirmationTime, departureTime);
+		
+		//Should throw an exception because passenger isConfirmed
+		test.refusePassenger(refusalTime);
+	}
+	
+	@Test (expected = asgn2Passengers.PassengerException.class)
+	public void refusePassengerExceptionThrowIsRefused() throws PassengerException {
+		int bookingTime = 1;
+		int confirmationTime = 2;
+		int refusalTime = 3;
+		int departureTime = 4;
+		Economy test = new Economy(bookingTime, departureTime);
+		test.refusePassenger(refusalTime);
+		
+		//Should throw an exception because already refused
+		test.refusePassenger(refusalTime);
+	}
+	
+	@Test (expected = asgn2Passengers.PassengerException.class)
+	public void refusePassengerExceptionThrowIsFlown() throws PassengerException {
+		int bookingTime = 1;
+		int refusalTime = 2;
+		int departureTime = 3;
+		Economy test = new Economy(bookingTime, departureTime);
+		test.flyPassenger(departureTime);
+		
+		//Should throw an exception because already flown
+		test.refusePassenger(refusalTime);
+	}
+	
+	@Test (expected = asgn2Passengers.PassengerException.class)
+	public void refusePassengerExceptionThrowRefusalTime() throws PassengerException {
+		int bookingTime = 1;
+		int refusalTime = -1;
+		int departureTime = 3;
+		Economy test = new Economy(bookingTime, departureTime);
+		
+		//Should throw an exception because refusalTime < 0
+		test.refusePassenger(refusalTime);
+	}
+	
+	@Test (expected = asgn2Passengers.PassengerException.class)
+	public void refusePassengerExceptionThrowRefusalBooking() throws PassengerException {
+		int bookingTime = 2;
+		int refusalTime = 1;
+		int departureTime = 3;
+		Economy test = new Economy(bookingTime, departureTime);
+		
+		//Should throw an exception because refusalTime < bookingTime
+		test.refusePassenger(refusalTime);
+	}
 	
 	//Now begins the wasQueued Tests
 	//Test wasQueued()
