@@ -74,6 +74,7 @@ public abstract class Passenger {
 	 */
 	public Passenger(int bookingTime, int departureTime) throws PassengerException  {
 		//Stuff here
+		this.newState = true;
 		this.bookingTime = bookingTime;
 		this.departureTime = departureTime;
 		if (this.bookingTime < 0 || this.departureTime <= 0 || this.departureTime < this.bookingTime ){
