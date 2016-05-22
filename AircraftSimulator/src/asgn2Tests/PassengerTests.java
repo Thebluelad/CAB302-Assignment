@@ -476,9 +476,8 @@ public class PassengerTests {
 	@Test (expected = asgn2Passengers.PassengerException.class)
 	public void refusePassengerExceptionThrowIsRefused() throws PassengerException {
 		int bookingTime = 1;
-		int confirmationTime = 2;
-		int refusalTime = 3;
-		int departureTime = 4;
+		int refusalTime = 2;
+		int departureTime = 3;
 		Economy test = new Economy(bookingTime, departureTime);
 		test.refusePassenger(refusalTime);
 		
