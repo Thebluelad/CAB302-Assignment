@@ -125,9 +125,6 @@ public abstract class Aircraft {
 	 * @throws AircraftException if no seats available in <code>Passenger</code> fare class. 
 	 */
 	public void confirmBooking(Passenger p,int confirmationTime) throws AircraftException, PassengerException { 
-		//Adding the passenger to the seats list
-		this.seats.add(p);
-		p.confirmSeat(confirmationTime, this.departureTime);
 		
 		//Given
 		this.status += Log.setPassengerMsg(p,"N/Q","C");
@@ -145,6 +142,10 @@ public abstract class Aircraft {
 		{
 			throw new AircraftException("No seats available");
 		}
+		
+		//Adding the passenger to the seats list
+		this.seats.add(p);
+		p.confirmSeat(confirmationTime, this.departureTime);
 	}
 	
 	/**
@@ -323,25 +324,25 @@ public abstract class Aircraft {
 	 * @return <code>boolean</code> true if seats in Class(p); false otherwise
 	 */
 	public boolean seatsAvailable(Passenger p) {
-		if (p instanceof Business)
+		if (p instanceof asgn2Passengers.Business)
 		{
 			if (this.numBusiness < businessCapacity)
 				return true;
 		}
 		
-		if (p instanceof Premium)
+		if (p instanceof asgn2Passengers.Premium)
 		{
 			if (this.numPremium < premiumCapacity)
 				return true;
 		}
 		
-		if (p instanceof First)
+		if (p instanceof asgn2Passengers.First)
 		{
 			if (this.numFirst < firstCapacity)
 				return true;
 		}
 		
-		if (p instanceof Economy)
+		if (p instanceof asgn2Passengers.Economy)
 		{
 			if (this.numEconomy < economyCapacity)
 				return true;

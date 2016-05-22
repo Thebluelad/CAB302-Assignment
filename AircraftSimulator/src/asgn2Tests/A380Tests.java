@@ -96,17 +96,16 @@ public class A380Tests {
 	}
 	
 	@Test
-	public void flightEmpty() throws AircraftException {
+	public void flightEmpty() throws AircraftException, PassengerException {
 		String  flightCode = "CNS-A380";
-		int cancellationTime = -1;
+		//int cancellationTime = -1;
 		int bookingTime = 1;
 		int confirmationTime = 2;
 		int departureTime = 4;
-		List<Economy> seats;
 		Economy testp = new Economy(bookingTime, departureTime);
 		A380 test = new A380(flightCode, departureTime);
-		test.flightEmpty();
-		assertTrue(test, this.seats);
+		test.confirmBooking(testp, confirmationTime);
+		assertTrue(test.flightEmpty() == false);
 	}
 	
 }
