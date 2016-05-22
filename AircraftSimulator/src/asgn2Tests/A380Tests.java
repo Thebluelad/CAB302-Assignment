@@ -95,5 +95,19 @@ public class A380Tests {
 		test.cancelBooking(testp, cancellationTime);
 	}
 	
+	@Test
+	public void flightEmpty() throws AircraftException {
+		String  flightCode = "CNS-A380";
+		int cancellationTime = -1;
+		int bookingTime = 1;
+		int confirmationTime = 2;
+		int departureTime = 4;
+		List<Economy> seats;
+		Economy testp = new Economy(bookingTime, departureTime);
+		A380 test = new A380(flightCode, departureTime);
+		test.flightEmpty();
+		assertTrue(test, this.seats);
+	}
+	
 }
 	
