@@ -407,7 +407,7 @@ public abstract class Passenger {
 	 * @return <code>boolean</code> true if was Confirmed state; false otherwise
 	 */
 	public boolean wasConfirmed() {
-		if 	(this.confirmationTime < 0) {
+		if 	(this.confirmationTime > 0) {
 			return true;
 		}
 		else
@@ -422,11 +422,10 @@ public abstract class Passenger {
 	 * @return <code>boolean</code> true if was Queued state; false otherwise
 	 */
 	public boolean wasQueued() {
-		if (this.enterQueueTime < 0 || this.exitQueueTime < 0) {
+		if (this.enterQueueTime > 0 || this.exitQueueTime > 0) {
 			return true;
 		}
-		else
-		{
+		else {
 			return false;
 		}
 	}

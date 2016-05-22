@@ -87,12 +87,33 @@ public class A380Tests {
 	@Test (expected = asgn2Passengers.PassengerException.class)
 	public void cancelBookingExceptionThrowDepartureTimeLessCancellationTime() throws AircraftException, PassengerException {
 		String  flightCode = "CNS-A380";
-		int cancellationTime = 3;
 		int bookingTime = 1;
 		int departureTime = 2;
+		int cancellationTime = 3;
 		Economy testp = new Economy(bookingTime, departureTime);
 		A380 test = new A380(flightCode, departureTime);
 		test.cancelBooking(testp, cancellationTime);
+	}
+	
+	@Test
+	public void cancelBookingExceptionThrowSeatsNotContainPassenger() {
+		
+	}
+	
+	@Test
+	public void cancelBookingExceptionSeatsRemove() {
+		
+	}
+	
+	@Test (expected = asgn2Passengers.PassengerException.class)
+	public void confirmBookingExceptionThrowIsConfirmed() throws PassengerException, AircraftException {
+		String  flightCode = "CNS-A380";
+		int bookingTime = 1;
+		int confirmationTime = 2;
+		int departureTime = 3;
+		Economy testp = new Economy(bookingTime, departureTime);
+		A380 test = new A380(flightCode, departureTime);
+		test.confirmBooking(testp, confirmationTime);
 	}
 	
 	@Test
