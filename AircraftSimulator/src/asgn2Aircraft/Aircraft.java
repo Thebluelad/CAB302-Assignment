@@ -147,6 +147,7 @@ public abstract class Aircraft {
 		
 		//Adding the passenger to the seats list
 		this.seats.add(p);
+		//Think I have to add to num{Class} for whichever class the passenger is in.
 		
 		p.confirmSeat(confirmationTime, this.departureTime);
 	}

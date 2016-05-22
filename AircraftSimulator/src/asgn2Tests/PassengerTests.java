@@ -7,6 +7,7 @@ import org.junit.Test;
 import asgn2Passengers.Business;
 import asgn2Passengers.Economy;
 import asgn2Passengers.First;
+import asgn2Passengers.Passenger;
 import asgn2Passengers.PassengerException;
 import asgn2Passengers.Premium;
 
@@ -600,13 +601,5 @@ public class PassengerTests {
 	}
 	
 	//Now begins the copyPassengerState Tests
-	
-	@Test
-	public void copyPassengerState() throws PassengerException {
-		int bookingTime = 1;
-		int departureTime = 2;
-		First test = new First(bookingTime, departureTime);
-		First upgraded = new First(bookingTime, departureTime);
-		assertTrue(test.upgrade().getClass() == upgraded.getClass());
-	}
+	//copyPassengerState tests need to be done within the upgrade tests because copyPassengerState is a protected function
 }
