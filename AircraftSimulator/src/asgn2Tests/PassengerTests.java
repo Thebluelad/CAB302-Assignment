@@ -4,8 +4,11 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import asgn2Passengers.Business;
 import asgn2Passengers.Economy;
+import asgn2Passengers.First;
 import asgn2Passengers.PassengerException;
+import asgn2Passengers.Premium;
 
 public class PassengerTests {
 
@@ -17,9 +20,11 @@ public class PassengerTests {
 	@Test
 	public void cancelSeatTestIsNew() throws PassengerException {
 		int bookingTime = 1;
+		int confirmationTime = 2;
 		int departureTime = 3;
 		int cancellationTime = 2;
 		Economy test = new Economy(bookingTime, departureTime);
+		test.confirmSeat(confirmationTime, departureTime);
 		test.cancelSeat(cancellationTime);
 		assertTrue(test.isNew() == true);
 	}
@@ -27,9 +32,11 @@ public class PassengerTests {
 	@Test
 	public void cancelSeatTestBookingTime() throws PassengerException {
 		int bookingTime = 1;
+		int confirmationTime = 2;
 		int departureTime = 3;
 		int cancellationTime = 2;
 		Economy test = new Economy(bookingTime, departureTime);
+		test.confirmSeat(confirmationTime, departureTime);
 		test.cancelSeat(cancellationTime);
 		assertTrue(test.getBookingTime() == cancellationTime);
 	}
@@ -229,8 +236,10 @@ public class PassengerTests {
 	@Test
 	public void flyPassengerIsConfirmed() throws PassengerException {
 		int bookingTime = 1;
+		int confirmationTime = 2;
 		int departureTime = 3;
 		Economy test = new Economy(bookingTime, departureTime);
+		test.confirmSeat(confirmationTime, departureTime);
 		test.flyPassenger(departureTime);
 		assertTrue(test.isConfirmed() == false);
 	}
@@ -238,8 +247,10 @@ public class PassengerTests {
 	@Test
 	public void flyPassengerIsFlown() throws PassengerException {
 		int bookingTime = 1;
+		int confirmationTime = 2;
 		int departureTime = 3;
 		Economy test = new Economy(bookingTime, departureTime);
+		test.confirmSeat(confirmationTime, departureTime);
 		test.flyPassenger(departureTime);
 		assertTrue(test.isFlown() == true);
 	}
@@ -247,8 +258,10 @@ public class PassengerTests {
 	@Test
 	public void flyPassengerDepartureTime() throws PassengerException {
 		int bookingTime = 1;
+		int confirmationTime = 2;
 		int departureTime = 3;
 		Economy test = new Economy(bookingTime, departureTime);
+		test.confirmSeat(confirmationTime, departureTime);
 		test.flyPassenger(departureTime);
 		assertTrue(test.getDepartureTime() == departureTime);
 	}
@@ -519,12 +532,81 @@ public class PassengerTests {
 		test.refusePassenger(refusalTime);
 	}
 	
+	
+	//Now begins the wasConfirmed Tests
+	
+	@Test
+	public void wasConfirmed() throws PassengerException {
+		int bookingTime = 1;
+		int confirmationTime = 2;
+		int cancellationTime = 3;
+		int departureTime = 4;
+		Economy test = new Economy(bookingTime, departureTime);
+		test.confirmSeat(confirmationTime, departureTime);
+		test.cancelSeat(cancellationTime);
+		assertTrue(test.wasConfirmed() == true);
+	}
+	
 	//Now begins the wasQueued Tests
-	//Test wasQueued()
+	
+	@Test
+	public void wasQueued() throws PassengerException {
+		int bookingTime = 1;
+		int queueTime = 2;
+		int refusalTime = 3;
+		int departureTime = 4;
+		Economy test = new Economy(bookingTime, departureTime);
+		test.queuePassenger(queueTime, departureTime);
+		test.refusePassenger(refusalTime);
+		assertTrue(test.wasQueued() == true);
+	}
 	
 	//Now begins the upgrade Tests
-	//Test upgrade()
+	
+	@Test
+	public void upgradeEconomy() throws PassengerException {
+		int bookingTime = 1;
+		int departureTime = 2;
+		Economy test = new Economy(bookingTime, departureTime);
+		Premium upgraded = new Premium(bookingTime, departureTime);
+		assertTrue(test.upgrade().getClass() == upgraded.getClass());
+	}
+	
+	@Test
+	public void upgradePremium() throws PassengerException {
+		int bookingTime = 1;
+		int departureTime = 2;
+		Premium test = new Premium(bookingTime, departureTime);
+		Business upgraded = new Business(bookingTime, departureTime);
+		assertTrue(test.upgrade().getClass() == upgraded.getClass());
+	}
+	
+	@Test
+	public void upgradeBusiness() throws PassengerException {
+		int bookingTime = 1;
+		int departureTime = 2;
+		Business test = new Business(bookingTime, departureTime);
+		First upgraded = new First(bookingTime, departureTime);
+		assertTrue(test.upgrade().getClass() == upgraded.getClass());
+	}
+	
+	@Test
+	public void upgradeFirst() throws PassengerException {
+		int bookingTime = 1;
+		int departureTime = 2;
+		First test = new First(bookingTime, departureTime);
+		First upgraded = new First(bookingTime, departureTime);
+		assertTrue(test.upgrade().getClass() == upgraded.getClass());
+	}
 	
 	//Now begins the copyPassengerState Tests
-	//Test copyPassengerState()
+	
+	@Test
+	public void copyPassengerState() throws PassengerException {
+		int bookingTime = 1;
+		int departureTime = 2;
+		First test = new First(bookingTime, departureTime);
+		First upgraded = new First(bookingTime, departureTime);
+		assertTrue(test.upgrade().getClass() == upgraded.getClass());
+	}
 }
