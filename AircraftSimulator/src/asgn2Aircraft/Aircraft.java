@@ -67,6 +67,8 @@ public abstract class Aircraft {
 	 * @throws AircraftException if isNull(flightCode) OR (departureTime <=0) OR ({first,business,premium,economy} <0)
 	 */
 	public Aircraft(String flightCode,int departureTime, int first, int business, int premium, int economy) throws AircraftException {
+		
+		this.seats = new ArrayList<Passenger>();
 		//The exception throw
 		if (flightCode == null || departureTime <= 0 || first < 0 || business < 0 || premium < 0 || economy < 0)
 		{
@@ -76,10 +78,10 @@ public abstract class Aircraft {
 		//Setting all the initial values based on the input
 		this.flightCode = flightCode;
 		this.departureTime = departureTime;
-		this.numFirst += first;
-		this.numBusiness += business;
-		this.numPremium += premium;
-		this.numEconomy += economy;
+		this.firstCapacity = first;
+		this.businessCapacity = business;
+		this.premiumCapacity = premium;
+		this.economyCapacity = economy;
 		
 		//Given
 		this.status = "";
@@ -145,6 +147,7 @@ public abstract class Aircraft {
 		
 		//Adding the passenger to the seats list
 		this.seats.add(p);
+		
 		p.confirmSeat(confirmationTime, this.departureTime);
 	}
 	
@@ -324,28 +327,30 @@ public abstract class Aircraft {
 	 * @return <code>boolean</code> true if seats in Class(p); false otherwise
 	 */
 	public boolean seatsAvailable(Passenger p) {
-		if (p instanceof asgn2Passengers.Business)
+		if (p instanceof Business)
 		{
 			if (this.numBusiness < businessCapacity)
 				return true;
 		}
 		
-		if (p instanceof asgn2Passengers.Premium)
+		if (p instanceof Premium)
 		{
 			if (this.numPremium < premiumCapacity)
 				return true;
 		}
 		
-		if (p instanceof asgn2Passengers.First)
+		if (p instanceof First)
 		{
 			if (this.numFirst < firstCapacity)
 				return true;
 		}
 		
-		if (p instanceof asgn2Passengers.Economy)
+		if (p instanceof Economy)
 		{
 			if (this.numEconomy < economyCapacity)
+			{
 				return true;
+			}
 		}
 		return false;
 	}
