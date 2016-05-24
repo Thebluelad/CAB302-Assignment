@@ -70,8 +70,7 @@ public abstract class Aircraft {
 		
 		this.seats = new ArrayList<Passenger>();
 		//The exception throw
-		if (flightCode == null || departureTime <= 0 || first < 0 || business < 0 || premium < 0 || economy < 0)
-		{
+		if (flightCode == null || departureTime <= 0 || first < 0 || business < 0 || premium < 0 || economy < 0) {
 			throw new AircraftException("Aircraft Exception");
 		}
 		
@@ -98,36 +97,28 @@ public abstract class Aircraft {
 	 * @throws AircraftException if <code>Passenger</code> is not recorded in aircraft seating 
 	 */
 	public void cancelBooking(Passenger p,int cancellationTime) throws PassengerException, AircraftException {
-		//PassengerException - if isNew(this) OR isQueued(this) OR isRefused(this) OR isFlown(this) OR (cancellationTime < 0) OR (departureTime < cancellationTime)
-		if (!p.isConfirmed() || p.isNew() || p.isQueued() || p.isRefused() || p.isFlown() || cancellationTime < 0 || this.departureTime < cancellationTime) //Might need some more conditions
-		{
+		if (!p.isConfirmed() || p.isNew() || p.isQueued() || p.isRefused() || p.isFlown() || cancellationTime < 0 || this.departureTime < cancellationTime) {
 			throw new PassengerException("Invalid cancellation time");
 		}
 		
-		if (!this.seats.contains(p))
-		{
+		if (!this.seats.contains(p)) {
 			throw new AircraftException("No booking exists for this passenger");
-		}
-		else
-		{
+		} else {
 			this.seats.remove(p);
-			if (p instanceof Business)
-			{
+			
+			if (p instanceof Business) {
 				this.numBusiness--;
 			}
 			
-			if (p instanceof Premium)
-			{
+			if (p instanceof Premium) {
 				this.numPremium--;
 			}
 			
-			if (p instanceof Economy)
-			{
+			if (p instanceof Economy) {
 				this.numEconomy--;
 			}
 			
-			if (p instanceof First)
-			{
+			if (p instanceof First) {
 				this.numFirst--;
 			}
 		}
@@ -152,37 +143,31 @@ public abstract class Aircraft {
 		//Exception throws
 		
 		//PassengerException - if isConfirmed(this) OR isRefused(this) OR isFlown(this) OR (confirmationTime < 0) OR (departureTime < confirmationTime)
-		if (p.isConfirmed() || p.isRefused() || p.isFlown() || p.getConfirmationTime() < 0 || this.departureTime < p.getConfirmationTime())
-		{
+		if (p.isConfirmed() || p.isRefused() || p.isFlown() || p.getConfirmationTime() < 0 || this.departureTime < p.getConfirmationTime()) {
 			throw new PassengerException("Invalid passenger");
 		}
 		
 		//AircraftException - if no seats available in Passenger fare class.
-		if (!this.seatsAvailable(p))
-		{
+		if (!this.seatsAvailable(p)) {
 			throw new AircraftException("No seats available");
 		}
 		
 		//Adding the passenger to the seats list
 		this.seats.add(p);
 		
-		if (p instanceof Business)
-		{
+		if (p instanceof Business) {
 			this.numBusiness++;
 		}
 		
-		if (p instanceof Premium)
-		{
+		if (p instanceof Premium) {
 			this.numPremium++;
 		}
 		
-		if (p instanceof Economy)
-		{
+		if (p instanceof Economy) {
 			this.numEconomy++;
 		}
 		
-		if (p instanceof First)
-		{
+		if (p instanceof First) {
 			this.numFirst++;
 		}
 		
@@ -208,8 +193,7 @@ public abstract class Aircraft {
 	 * @return <code>boolean</code> true if aircraft empty; false otherwise 
 	 */
 	public boolean flightEmpty() {
-		if (this.seats.isEmpty())
-		{
+		if (this.seats.isEmpty()) {
 			return true;
 		}
 		return false;
@@ -221,8 +205,7 @@ public abstract class Aircraft {
 	 * @return <code>boolean</code> true if aircraft full; false otherwise 
 	 */
 	public boolean flightFull() {
-		if (this.seats.size() >= (this.firstCapacity + this.economyCapacity + this.businessCapacity + this.premiumCapacity))
-		{
+		if (this.seats.size() >= (this.firstCapacity + this.economyCapacity + this.businessCapacity + this.premiumCapacity)) {
 			return true;
 		}
 		return false;
@@ -238,8 +221,7 @@ public abstract class Aircraft {
 	 * See {@link asgn2Passengers.Passenger#flyPassenger(int)}. 
 	 */
 	public void flyPassengers(int departureTime) throws PassengerException { 
-		for (int i = 0; i < this.seats.size(); i++)
-		{
+		for (int i = 0; i < this.seats.size(); i++) {
 			this.seats.get(i).flyPassenger(departureTime);
 		}
 	}
@@ -254,7 +236,7 @@ public abstract class Aircraft {
 		 int total = numFirst + numBusiness + numPremium + numEconomy;
 		 //Available could be capacity minus total
 		 int available = this.firstCapacity + this.economyCapacity + this.businessCapacity + this.premiumCapacity;
-		return new Bookings(numFirst, numBusiness, numPremium, numEconomy, total, available);
+		 return new Bookings(numFirst, numBusiness, numPremium, numEconomy, total, available);
 	}
 	
 	/**
@@ -336,8 +318,7 @@ public abstract class Aircraft {
 	 * @return <code>boolean</code> true if isConfirmed(p); false otherwise 
 	 */
 	public boolean hasPassenger(Passenger p) {
-		if (this.seats.contains(p))
-		{
+		if (this.seats.contains(p)) {
 			return true;
 		}
 		return false;
@@ -365,28 +346,26 @@ public abstract class Aircraft {
 	 * @return <code>boolean</code> true if seats in Class(p); false otherwise
 	 */
 	public boolean seatsAvailable(Passenger p) {
-		if (p instanceof Business)
-		{
-			if (this.numBusiness < businessCapacity)
+		if (p instanceof Business) {
+			if (this.numBusiness < businessCapacity) {
 				return true;
+			}
 		}
 		
-		if (p instanceof Premium)
-		{
-			if (this.numPremium < premiumCapacity)
+		if (p instanceof Premium) {
+			if (this.numPremium < premiumCapacity) {
 				return true;
+			}
 		}
 		
-		if (p instanceof First)
-		{
-			if (this.numFirst < firstCapacity)
+		if (p instanceof First) {
+			if (this.numFirst < firstCapacity) {
 				return true;
+			}
 		}
 		
-		if (p instanceof Economy)
-		{
-			if (this.numEconomy < economyCapacity)
-			{
+		if (p instanceof Economy) {
+			if (this.numEconomy < economyCapacity) {
 				return true;
 			}
 		}
@@ -419,13 +398,10 @@ public abstract class Aircraft {
 	 */
 	public void upgradeBookings() { 
 		
-		for (int i = 0; i < this.seats.size(); i++)
-		{
+		for (int i = 0; i < this.seats.size(); i++) {
 			Passenger upgraded = null;
-			if (this.seats.get(i) instanceof Business)
-			{
-				if (this.numFirst < this.firstCapacity)
-				{
+			if (this.seats.get(i) instanceof Business) {
+				if (this.numFirst < this.firstCapacity) {
 					upgraded = this.seats.get(i).upgrade();
 					this.seats.remove(i);
 					this.numBusiness--;
@@ -433,10 +409,8 @@ public abstract class Aircraft {
 				}
 			}
 			
-			if (this.seats.get(i) instanceof Premium)
-			{
-				if (this.numBusiness < this.businessCapacity)
-				{
+			if (this.seats.get(i) instanceof Premium) {
+				if (this.numBusiness < this.businessCapacity) {
 					upgraded = this.seats.get(i).upgrade();
 					this.seats.remove(i);
 					this.numPremium--;
@@ -444,10 +418,8 @@ public abstract class Aircraft {
 				}
 			}
 			
-			if (this.seats.get(i) instanceof Economy)
-			{
-				if (this.numPremium < this.premiumCapacity)
-				{
+			if (this.seats.get(i) instanceof Economy) {
+				if (this.numPremium < this.premiumCapacity) {
 					upgraded = this.seats.get(i).upgrade();
 					this.seats.remove(i);
 					this.numEconomy--;
@@ -485,40 +457,6 @@ public abstract class Aircraft {
 		return msg + p.noSeatsMsg(); 
 	}
 }
-
-//Some notes for me on the upgradePassengers function
-		//for (all passengers except first)
-		//if (space available in next class up)
-		//upgrade
-		//end for
-		
-		//Where subclass is the booking type (First, economy, business, premium)
-		//for each (subclass)
-		// if (space exists in the better class)
-		// 		upgrade;
-		//for each (subclass)
-		// if (space exists in the better class)
-		// 		upgrade;
-		//for each (subclass)
-		// if (space exists in the better class)
-		// 		upgrade;
-		//for each (subclass)
-		// if (space exists in the better class)
-		// 		upgrade;
-		
-		//or
-		
-		//Where object type is the name of the class
-		//for each (passenger)
-		//switch (object type)
-		//case first {}
-		//case economy {}
-		//case business {}
-		//case premium {}
-		
-
-
-
 
 
 
