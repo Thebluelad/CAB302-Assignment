@@ -357,7 +357,12 @@ public class A380Tests {
 	
 	@Test
 	public void upgradeBooking() throws PassengerException, AircraftException{
-		//what do i do;
+
 	}
+	
+	//This test is going to be fairly complex.
+	//You will need to create an aircraft of a certain size (using the version of the constructor that lets you specify)
+	//Then create passengers of each class (First, Economy, ...) to fill that aircraft.
+	//Then you will need to run upgradeBooking and see if the outcome is what is expected.
 }
 	
