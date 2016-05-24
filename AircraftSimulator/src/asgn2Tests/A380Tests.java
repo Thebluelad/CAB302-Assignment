@@ -357,7 +357,7 @@ public class A380Tests {
 	
 	@Test
 	public void upgradeBooking() throws PassengerException, AircraftException{
-		what do i do;
+		//what do i do;
 	}
 }
 	
