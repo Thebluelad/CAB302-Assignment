@@ -111,7 +111,25 @@ public abstract class Aircraft {
 		else
 		{
 			this.seats.remove(p);
-			//I feel like I need to remove them from the counts (numFirst, numBusiness, etc.) as well but not sure how to get the booking type
+			if (p instanceof Business)
+			{
+				this.numBusiness--;
+			}
+			
+			if (p instanceof Premium)
+			{
+				this.numPremium--;
+			}
+			
+			if (p instanceof Economy)
+			{
+				this.numEconomy--;
+			}
+			
+			if (p instanceof First)
+			{
+				this.numFirst--;
+			}
 		}
 		this.status += Log.setPassengerMsg(p,"C","N");
 	}
@@ -147,7 +165,26 @@ public abstract class Aircraft {
 		
 		//Adding the passenger to the seats list
 		this.seats.add(p);
-		//Think I have to add to num{Class} for whichever class the passenger is in.
+		
+		if (p instanceof Business)
+		{
+			this.numBusiness++;
+		}
+		
+		if (p instanceof Premium)
+		{
+			this.numPremium++;
+		}
+		
+		if (p instanceof Economy)
+		{
+			this.numEconomy++;
+		}
+		
+		if (p instanceof First)
+		{
+			this.numFirst++;
+		}
 		
 		p.confirmSeat(confirmationTime, this.departureTime);
 	}
@@ -384,12 +421,15 @@ public abstract class Aircraft {
 		
 		for (int i = 0; i < this.seats.size(); i++)
 		{
+			Passenger upgraded = null;
 			if (this.seats.get(i) instanceof Business)
 			{
 				if (this.numFirst < this.firstCapacity)
 				{
-					this.seats.get(i).upgrade();
-					//Still need to take from the seats and re-add at the end.
+					upgraded = this.seats.get(i).upgrade();
+					this.seats.remove(i);
+					this.numBusiness--;
+					this.numFirst++;
 				}
 			}
 			
@@ -397,7 +437,10 @@ public abstract class Aircraft {
 			{
 				if (this.numBusiness < this.businessCapacity)
 				{
-					this.seats.get(i).upgrade();
+					upgraded = this.seats.get(i).upgrade();
+					this.seats.remove(i);
+					this.numPremium--;
+					this.numBusiness++;
 				}
 			}
 			
@@ -405,9 +448,13 @@ public abstract class Aircraft {
 			{
 				if (this.numPremium < this.premiumCapacity)
 				{
-					this.seats.get(i).upgrade();
+					upgraded = this.seats.get(i).upgrade();
+					this.seats.remove(i);
+					this.numEconomy--;
+					this.numPremium++;
 				}
 			}	
+			this.seats.add(upgraded);
 		}
 		
 	}
