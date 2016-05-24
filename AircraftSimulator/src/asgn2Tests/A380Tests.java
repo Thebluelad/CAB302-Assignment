@@ -4,9 +4,13 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import com.sun.corba.se.impl.orb.ParserTable.TestIIOPPrimaryToContactInfo;
+
 import asgn2Aircraft.A380;
 import asgn2Aircraft.AircraftException;
+import asgn2Passengers.Business;
 import asgn2Passengers.Economy;
+import asgn2Passengers.First;
 import asgn2Passengers.PassengerException;
 import asgn2Passengers.Premium;
 
@@ -206,7 +210,7 @@ public class A380Tests {
 		int confirmationTime = 2;
 		int departureTime = 3;
 		Economy testp = new Economy(bookingTime, departureTime);
-		A380 test = new A380(flightCode, departureTime, 0, 0, 0, 1);
+		A380 test = new A380(flightCode, departureTime, 0, 0, 0, 2);
 		test.confirmBooking(testp, confirmationTime);
 		assertTrue(test.seatsAvailable(testp));
 	}
@@ -355,7 +359,7 @@ public class A380Tests {
 		int confirmationTime = 2;
 		int departureTime = 4;
 		Economy testp = new Economy(bookingTime, departureTime);
-		A380 test = new A380(flightCode, departureTime, 0, 0, 0, 1);
+		A380 test = new A380(flightCode, departureTime, 0, 0, 0, 2);
 		test.confirmBooking(testp, confirmationTime);
 		assertTrue(test.seatsAvailable(testp));
 	}
@@ -377,11 +381,15 @@ public class A380Tests {
 		int confirmationTime = 2;
 		int departureTime = 4;
 		Economy testp = new Economy(bookingTime, departureTime);
-		A380 test = new A380(flightCode, departureTime, 0, 0, 0, 1);
+		Premium testp2 = new Premium (bookingTime, departureTime);
+		Business testp3 = new Business(bookingTime, departureTime);
+		First testp4 = new First(bookingTime, departureTime);
+		A380 test = new A380(flightCode, departureTime, 0, 0, 2, 2);
 		testp.confirmSeat(confirmationTime, departureTime);
-		test.getNumEconomy();
+		testp2.confirmSeat(confirmationTime, departureTime);
+		testp3.confirmSeat(confirmationTime, departureTime);
+		testp4.confirmSeat(confirmationTime, departureTime);
 		test.upgradeBookings();
-		assertTrue(testp.getClass() == Premium);
 	}
 	
 	//This test is going to be fairly complex.
