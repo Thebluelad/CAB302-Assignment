@@ -8,6 +8,7 @@ import asgn2Aircraft.A380;
 import asgn2Aircraft.AircraftException;
 import asgn2Passengers.Economy;
 import asgn2Passengers.PassengerException;
+import asgn2Passengers.Premium;
 
 public class A380Tests {
 
@@ -191,9 +192,23 @@ public class A380Tests {
 		int departureTime = 3;
 		Economy testp = new Economy(bookingTime, departureTime);
 		Economy testp2 = new Economy(bookingTime, departureTime);
-		A380 test = new A380(flightCode, departureTime, 1, 1, 1, 1);
+		A380 test = new A380(flightCode, departureTime, 0, 0, 0, 0);
 		test.confirmBooking(testp, confirmationTime);
 		test.confirmBooking(testp2, confirmationTime);
+		test.seatsAvailable(testp);
+		test.seatsAvailable(testp2);
+	}
+	
+	@Test
+	public void confirmBookingPassengerSeatsAdded() throws PassengerException, AircraftException {
+		String  flightCode = "CNS-A380";
+		int bookingTime = 1;
+		int confirmationTime = 2;
+		int departureTime = 3;
+		Economy testp = new Economy(bookingTime, departureTime);
+		A380 test = new A380(flightCode, departureTime, 0, 0, 0, 1);
+		test.confirmBooking(testp, confirmationTime);
+		assertTrue(test.seatsAvailable(testp));
 	}
 	
 	@Test
@@ -357,7 +372,16 @@ public class A380Tests {
 	
 	@Test
 	public void upgradeBooking() throws PassengerException, AircraftException{
-
+		String  flightCode = "CNS-A380";
+		int bookingTime = 1;
+		int confirmationTime = 2;
+		int departureTime = 4;
+		Economy testp = new Economy(bookingTime, departureTime);
+		A380 test = new A380(flightCode, departureTime, 0, 0, 0, 1);
+		testp.confirmSeat(confirmationTime, departureTime);
+		test.getNumEconomy();
+		test.upgradeBookings();
+		assertTrue(testp.getClass() == Premium);
 	}
 	
 	//This test is going to be fairly complex.
