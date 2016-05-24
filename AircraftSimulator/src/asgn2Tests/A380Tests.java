@@ -372,6 +372,7 @@ public class A380Tests {
 	
 	@Test
 	public void upgradeBooking() throws PassengerException, AircraftException{
+<<<<<<< HEAD
 		String  flightCode = "CNS-A380";
 		int bookingTime = 1;
 		int confirmationTime = 2;
@@ -382,6 +383,9 @@ public class A380Tests {
 		test.getNumEconomy();
 		test.upgradeBookings();
 		assertTrue(testp.getClass() == Premium);
+=======
+		//what do i do;
+>>>>>>> c4ed67d84bf58ad143076794b236ef6a217ab621
 	}
 }
 	
