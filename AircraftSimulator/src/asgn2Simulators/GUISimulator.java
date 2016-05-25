@@ -7,9 +7,9 @@
 package asgn2Simulators;
 
 import java.awt.HeadlessException;
-import java.awt.Panel;
 
 import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
 
 /**
  * @author hogan
@@ -27,6 +27,7 @@ public class GUISimulator extends JFrame implements Runnable {
 		// TODO Auto-generated constructor stub
 		setSize(700, 500);
 		setLocation(100, 200);
+		setVisible(true);
 	}
 
 	/* (non-Javadoc)
@@ -43,8 +44,8 @@ public class GUISimulator extends JFrame implements Runnable {
 	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		GUISimulator frame = new GUISimulator("Test");
-		frame.show();
+		JFrame.setDefaultLookAndFeelDecorated(true);
+        SwingUtilities.invokeLater(new GUISimulator("Aircraft Simulator"));
 	}
 
 }
