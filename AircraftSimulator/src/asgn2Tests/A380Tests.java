@@ -4,7 +4,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import com.sun.corba.se.impl.orb.ParserTable.TestIIOPPrimaryToContactInfo;
+//import com.sun.corba.se.impl.orb.ParserTable.TestIIOPPrimaryToContactInfo;
 
 import asgn2Aircraft.A380;
 import asgn2Aircraft.AircraftException;
@@ -15,13 +15,61 @@ import asgn2Passengers.PassengerException;
 import asgn2Passengers.Premium;
 
 public class A380Tests {
+	
+	@Test (expected = asgn2Aircraft.AircraftException.class)
+	public void constructorThrowFlightCodeNull () throws AircraftException, PassengerException {
+		int departureTime = 1;
+		A380 test = new A380(null, departureTime);	
+	}
+	
+	@Test (expected = asgn2Aircraft.AircraftException.class)
+	public void constructorThrowDepartureTimeLessThanZero () throws AircraftException, PassengerException {
+		String  flightCode = "CNS-A380";
+		int departureTime = -1;
+		A380 test = new A380(flightCode, departureTime);	
+	}
+	
+	@Test (expected = asgn2Aircraft.AircraftException.class)
+	public void constructorThrowDepartureTimeEqualsZero () throws AircraftException, PassengerException {
+		String  flightCode = "CNS-A380";
+		int departureTime = 0;
+		A380 test = new A380(flightCode, departureTime);	
+	}
+	
+	@Test (expected = asgn2Aircraft.AircraftException.class)
+	public void constructorThrowFirstLessThanZero () throws AircraftException, PassengerException {
+		String  flightCode = "CNS-A380";
+		int departureTime = 2;
+		A380 test = new A380(flightCode, departureTime, -1, 0, 0, 0);
+	}
+	
+	@Test (expected = asgn2Aircraft.AircraftException.class)
+	public void constructorThrowBusinesLessThanZero () throws AircraftException, PassengerException {
+		String  flightCode = "CNS-A380";
+		int departureTime = 2;
+		A380 test = new A380(flightCode, departureTime, 0, -1, 0, 0);
+	}
+	
+	@Test (expected = asgn2Aircraft.AircraftException.class)
+	public void constructorThrowPremiumLessThanZero () throws AircraftException, PassengerException {
+		String  flightCode = "CNS-A380";
+		int departureTime = 2;
+		A380 test = new A380(flightCode, departureTime, 0, 0, -1, 0);
+	}
+	
+	@Test (expected = asgn2Aircraft.AircraftException.class)
+	public void constructorThrowyEconomyLessThanZero () throws AircraftException, PassengerException {
+		String  flightCode = "CNS-A380";
+		int departureTime = 2;
+		A380 test = new A380(flightCode, departureTime, 0, 0, 0, -1);
+	}
 
 	@Test (expected = asgn2Passengers.PassengerException.class)
 	public void cancelBookingExceptionThrowNotConfirmed() throws AircraftException, PassengerException {
 		String  flightCode = "CNS-A380";
 		int bookingTime = 1;
-		int departureTime = 4;
 		int cancellationTime = 3;
+		int departureTime = 4;
 		Economy testp = new Economy(bookingTime, departureTime);
 		A380 test = new A380(flightCode, departureTime);
 		testp.cancelSeat(cancellationTime);
