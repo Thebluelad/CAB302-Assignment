@@ -7,6 +7,7 @@
 package asgn2Simulators;
 
 import java.awt.HeadlessException;
+import java.awt.Panel;
 
 import javax.swing.JFrame;
 
@@ -24,6 +25,8 @@ public class GUISimulator extends JFrame implements Runnable {
 	public GUISimulator(String arg0) throws HeadlessException {
 		super(arg0);
 		// TODO Auto-generated constructor stub
+		setSize(700, 500);
+		setLocation(100, 200);
 	}
 
 	/* (non-Javadoc)
@@ -40,7 +43,8 @@ public class GUISimulator extends JFrame implements Runnable {
 	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-
+		GUISimulator frame = new GUISimulator("Test");
+		frame.show();
 	}
 
 }
