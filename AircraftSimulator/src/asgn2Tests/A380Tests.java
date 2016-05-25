@@ -375,7 +375,7 @@ public class A380Tests {
 	}
 	
 	@Test
-	public void upgradeBookingsEconomytoPremium() throws PassengerException, AircraftException{
+	public void upgradeBookingsExceptFirst() throws PassengerException, AircraftException{
 		String  flightCode = "CNS-A380";
 		int bookingTime = 1;
 		int confirmationTime = 2;
@@ -396,18 +396,37 @@ public class A380Tests {
 		test.confirmBooking(bus2, confirmationTime);
 		test.confirmBooking(first1, confirmationTime);
 		
-		System.out.println(test.toString());
 		test.upgradeBookings();
-		System.out.println(test.toString());
+		assertEquals(test.toString(), "A380:CNS-A380:4 Count: 7 [F: 2 J: 2 P: 2 Y: 1]");
+	}
+	
+	@Test
+	public void upgradeBookingsNoUpgrades() throws PassengerException, AircraftException{
+		String  flightCode = "CNS-A380";
+		int bookingTime = 1;
+		int confirmationTime = 2;
+		int departureTime = 4;
+		Economy econ1 = new Economy(bookingTime, departureTime);
+		Economy econ2 = new Economy(bookingTime, departureTime);
+		Premium prem1 = new Premium (bookingTime, departureTime);
+		Premium prem2 = new Premium (bookingTime, departureTime);
+		Business bus1 = new Business(bookingTime, departureTime);
+		Business bus2 = new Business(bookingTime, departureTime);
+		First first1 = new First(bookingTime, departureTime);
+		First first2 = new First(bookingTime, departureTime);
+		A380 test = new A380(flightCode, departureTime, 2, 2, 2, 2);
+		test.confirmBooking(econ1, confirmationTime);
+		test.confirmBooking(econ2, confirmationTime);
+		test.confirmBooking(prem1, confirmationTime);
+		test.confirmBooking(prem2, confirmationTime);
+		test.confirmBooking(bus1, confirmationTime);
+		test.confirmBooking(bus2, confirmationTime);
+		test.confirmBooking(first1, confirmationTime);
+		test.confirmBooking(first2, confirmationTime);
 		
-		//Final State
-		//2 first, 2 business, 2 premium, 1 economy
+		test.upgradeBookings();
+		assertEquals(test.toString(), "A380:CNS-A380:4 Count: 8 [F: 2 J: 2 P: 2 Y: 2]");
 		
-		//declare ints and strings
-		//create a passenger for each class
-		//create the aircraft to hold enough passengers
-		//upgrade the passengers booking
-		//check to see if the booking is upgraded
 	}
 	
 	//This test is going to be fairly complex.
