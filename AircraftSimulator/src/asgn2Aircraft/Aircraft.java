@@ -239,8 +239,7 @@ public abstract class Aircraft {
 	 */
 	public Bookings getBookings() {
 		 int total = numFirst + numBusiness + numPremium + numEconomy;
-		 //Available could be capacity minus total
-		 int available = this.firstCapacity + this.economyCapacity + this.businessCapacity + this.premiumCapacity;
+		 int available = this.firstCapacity - this.numFirst + this.economyCapacity - this.numEconomy + this.businessCapacity - this.numBusiness + this.premiumCapacity - this.numPremium;
 		 return new Bookings(numFirst, numBusiness, numPremium, numEconomy, total, available);
 	}
 	
