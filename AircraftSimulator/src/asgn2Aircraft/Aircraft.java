@@ -401,39 +401,47 @@ public abstract class Aircraft {
 	 * by upgrades to First), and then finally, we do the same for Economy, upgrading 
 	 * where possible to Premium.  
 	 */
-	public void upgradeBookings() { 
+	public void upgradeBookings() {
+		//Not a great method to loop through the passengers 3 times but it works.
 		
+		//Loop looking for Business Passengers to upgrade
 		for (int i = 0; i < this.seats.size(); i++) {
-			Passenger upgraded = null;
 			if (this.seats.get(i) instanceof Business) {
 				if (this.numFirst < this.firstCapacity) {
-					upgraded = this.seats.get(i).upgrade();
+					First upgraded = (First) this.seats.get(i).upgrade();
 					this.seats.remove(i);
+					this.seats.add(upgraded);
 					this.numBusiness--;
 					this.numFirst++;
 				}
 			}
-			
+		}
+		
+		//Loop looking for Premium Passengers to upgrade
+		for (int i = 0; i < this.seats.size(); i++) {
 			if (this.seats.get(i) instanceof Premium) {
 				if (this.numBusiness < this.businessCapacity) {
-					upgraded = this.seats.get(i).upgrade();
+					Business upgraded = (Business) this.seats.get(i).upgrade();
 					this.seats.remove(i);
+					this.seats.add(upgraded);
 					this.numPremium--;
 					this.numBusiness++;
 				}
 			}
-			
+		}
+		
+		//Loop looking for Economy Passengers to upgrade
+		for (int i = 0; i < this.seats.size(); i++) {
 			if (this.seats.get(i) instanceof Economy) {
 				if (this.numPremium < this.premiumCapacity) {
-					upgraded = this.seats.get(i).upgrade();
+					Premium upgraded = (Premium) this.seats.get(i).upgrade();
 					this.seats.remove(i);
+					this.seats.add(upgraded);
 					this.numEconomy--;
 					this.numPremium++;
 				}
-			}	
-			this.seats.add(upgraded);
+			}
 		}
-		
 	}
 
 	/**
