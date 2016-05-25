@@ -232,14 +232,6 @@ public abstract class Passenger {
 	 * @return <code>boolean</code> true if Confirmed state; false otherwise 
 	 */
 	public boolean isConfirmed() {
-//		if (confirmed)
-//		{
-//			return this.confirmed;
-//		}
-//		else
-//		{
-//			return false;
-//		}
 		return this.confirmed;
 	}
 		
@@ -249,14 +241,7 @@ public abstract class Passenger {
 	 * @return <code>boolean</code> true if Flown state; false otherwise 
 	 */
 	public boolean isFlown() {
-		if (flown)
-		{
 			return this.flown;
-		}
-		else
-		{
-			return false;
-		}
 	}
 	
 	/**
@@ -265,14 +250,7 @@ public abstract class Passenger {
 	 * @return <code>boolean</code> true if New state; false otherwise 
 	 */
 	public boolean isNew() {
-		if (newState)
-		{
-			return this.newState;
-		}
-		else
-		{
-			return false;
-		}
+		return this.newState;
 	}
 
 	/**
@@ -281,14 +259,7 @@ public abstract class Passenger {
 	 * @return <code>boolean</code> true if Queued state; false otherwise 
 	 */
 	public boolean isQueued() {
-		if (inQueue)
-		{
-			return this.inQueue;
-		}
-		else
-		{
-			return false;
-		}
+		return this.inQueue;
 	}
 	
 	/**
@@ -297,14 +268,7 @@ public abstract class Passenger {
 	 * @return <code>boolean</code> true if Refused state; false otherwise 
 	 */
 	public boolean isRefused() {
-		if (refused)
-		{
-			return this.refused;
-		}
-		else
-		{
-			return false;
-		}
+		return this.refused;
 	}
 	
 	/**
