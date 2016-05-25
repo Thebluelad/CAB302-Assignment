@@ -82,6 +82,11 @@ public abstract class Aircraft {
 		this.premiumCapacity = premium;
 		this.economyCapacity = economy;
 		
+		this.numFirst = 0;
+		this.numBusiness = 0;
+		this.numPremium = 0;
+		this.numEconomy = 0;
+		
 		//Given
 		this.status = "";
 	}
