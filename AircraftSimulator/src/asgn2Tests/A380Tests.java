@@ -375,21 +375,39 @@ public class A380Tests {
 	}
 	
 	@Test
-	public void upgradeBooking() throws PassengerException, AircraftException{
+	public void upgradeBookingsEconomytoPremium() throws PassengerException, AircraftException{
 		String  flightCode = "CNS-A380";
 		int bookingTime = 1;
 		int confirmationTime = 2;
 		int departureTime = 4;
-		Economy testp = new Economy(bookingTime, departureTime);
-		Premium testp2 = new Premium (bookingTime, departureTime);
-		Business testp3 = new Business(bookingTime, departureTime);
-		First testp4 = new First(bookingTime, departureTime);
-		A380 test = new A380(flightCode, departureTime, 0, 0, 2, 2);
-		testp.confirmSeat(confirmationTime, departureTime);
-		testp2.confirmSeat(confirmationTime, departureTime);
-		testp3.confirmSeat(confirmationTime, departureTime);
-		testp4.confirmSeat(confirmationTime, departureTime);
+		Economy econ1 = new Economy(bookingTime, departureTime);
+		Economy econ2 = new Economy(bookingTime, departureTime);
+		Premium prem1 = new Premium (bookingTime, departureTime);
+		Premium prem2 = new Premium (bookingTime, departureTime);
+		Business bus1 = new Business(bookingTime, departureTime);
+		Business bus2 = new Business(bookingTime, departureTime);
+		First first1 = new First(bookingTime, departureTime);
+		A380 test = new A380(flightCode, departureTime, 2, 2, 2, 2);
+		test.confirmBooking(econ1, confirmationTime);
+		test.confirmBooking(econ2, confirmationTime);
+		test.confirmBooking(prem1, confirmationTime);
+		test.confirmBooking(prem2, confirmationTime);
+		test.confirmBooking(bus1, confirmationTime);
+		test.confirmBooking(bus2, confirmationTime);
+		test.confirmBooking(first1, confirmationTime);
+		
+		System.out.println(test.toString());
 		test.upgradeBookings();
+		System.out.println(test.toString());
+		
+		//Final State
+		//2 first, 2 business, 2 premium, 1 economy
+		
+		//declare ints and strings
+		//create a passenger for each class
+		//create the aircraft to hold enough passengers
+		//upgrade the passengers booking
+		//check to see if the booking is upgraded
 	}
 	
 	//This test is going to be fairly complex.
