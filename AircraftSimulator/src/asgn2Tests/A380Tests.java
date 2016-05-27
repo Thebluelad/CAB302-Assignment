@@ -4,8 +4,6 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-//import com.sun.corba.se.impl.orb.ParserTable.TestIIOPPrimaryToContactInfo;
-
 import asgn2Aircraft.A380;
 import asgn2Aircraft.AircraftException;
 import asgn2Passengers.Business;
