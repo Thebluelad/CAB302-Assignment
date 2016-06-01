@@ -11,11 +11,7 @@ import asgn2Passengers.Passenger;
 import asgn2Passengers.PassengerException;
 import asgn2Passengers.Premium;
 
-public class PassengerTests {
-
-	//A note to lucy is that the subclass constructors should call the super class
-	//Probably why these tests are failing.
-	
+public class PassengerTests {	
 	//Now begins the cancelSeat Tests
 	
 	@Test

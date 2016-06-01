@@ -6,9 +6,19 @@
  */
 package asgn2Simulators;
 
+import java.awt.Color;
 import java.io.IOException;
 
+import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
+
+import org.jfree.data.xy.XYDataset;
+import org.jfree.data.xy.XYSeries;
+import org.jfree.data.xy.XYSeriesCollection;
+
+import asgn2Aircraft.Aircraft;
 import asgn2Aircraft.AircraftException;
+import asgn2Aircraft.Bookings;
 import asgn2Passengers.PassengerException;
 
 /**
@@ -26,6 +36,9 @@ public class SimulationRunner {
 	 * see {@link asgn2Simulators.SimulationRunner#printErrorAndExit()}
 	 */
 	public static void main(String[] args) {
+		
+		//Think I'm going to need to edit this heaps
+		
 		final int NUM_ARGS = 9; 
 		Simulator s = null; 
 		Log l = null; 
@@ -33,12 +46,24 @@ public class SimulationRunner {
 		try {
 			switch (args.length) {
 				case NUM_ARGS: {
-					s = createSimulatorUsingArgs(args); 
+					s = createSimulatorUsingArgs(args);
+					//GUISimulator gui = new GUISimulator("Aircraft Simulator");
 					break;
 				}
 				case 0: {
-					s = new Simulator(); 
+					s = new Simulator();
+					//GUISimulator gui = new GUISimulator("Aircraft Simulator");
 					break;
+				}
+				//Case 10 was added by me but not sure if it should stay.
+				case 10: {
+					if (args[9].compareTo("true") == 0){
+						//run the gui
+						//GUISimulator gui = new GUISimulator("Aircraft Simulator");
+					} else {
+						//run the simulator only
+					}
+					break;	
 				}
 				default: {
 					printErrorAndExit(); 
@@ -122,6 +147,20 @@ public class SimulationRunner {
 		this.sim.createSchedule();
 		this.log.initialEntry(this.sim);
 		
+		//Not sure if the following line actually does anything
+		//JFrame.setDefaultLookAndFeelDecorated(true);
+		
+		GUISimulator gui = new GUISimulator("Aircraft Simulator");
+		//SwingUtilities.invokeLater(new GUISimulator("Aircraft Simulator"));
+		gui.setBackground(new Color(238, 30, 238));
+		XYSeriesCollection data = new XYSeriesCollection();
+		XYSeries first = new XYSeries("First");
+		XYSeries business = new XYSeries("Business");
+		XYSeries premium = new XYSeries("Premium");
+		XYSeries economy = new XYSeries("Economy");
+		XYSeries empty = new XYSeries("Empty");
+		XYSeries total = new XYSeries("Total Bookings");
+		
 		//Main simulation loop 
 		for (int time=0; time<=Constants.DURATION; time++) {
 			this.sim.resetStatus(time); 
@@ -129,6 +168,16 @@ public class SimulationRunner {
 			this.sim.generateAndHandleBookings(time);
 			this.sim.processNewCancellations(time);
 			if (time >= Constants.FIRST_FLIGHT) {
+				//GUI stuff 
+				Flights flightsDaily = sim.getFlights(time);
+				Bookings daily = flightsDaily.getCurrentCounts();
+				first.add(time, daily.getNumFirst());
+				business.add(time, daily.getNumBusiness());
+				economy.add(time, daily.getNumEconomy());
+				premium.add(time, daily.getNumPremium());
+				empty.add(time, daily.getAvailable());
+				total.add(time, daily.getTotal());
+				
 				this.sim.processUpgrades(time);
 				this.sim.processQueue(time);
 				this.sim.flyPassengers(time);
@@ -141,6 +190,13 @@ public class SimulationRunner {
 			this.log.logQREntries(time, sim);
 			this.log.logEntry(time,this.sim);
 		}
+		data.addSeries(first);
+		data.addSeries(economy);
+		data.addSeries(business);
+		data.addSeries(premium);
+		data.addSeries(empty);
+		data.addSeries(total);
+		gui.data = (XYDataset)data;
 		this.sim.finaliseQueuedAndCancelledPassengers(Constants.DURATION); 
 		this.log.logQREntries(Constants.DURATION, sim);
 		this.log.finalise(this.sim);
