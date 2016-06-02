@@ -399,6 +399,11 @@ public class GUISimulator extends JFrame implements Runnable {
 			JOptionPane.showMessageDialog(null, "No individual probability can be greater than 1");
 			return false;
 		}
+		else if (firstProb < 0 || businessProb < 0 || premiumProb < 0 || economyProb < 0 || cancelProb < 0 || meanBookings < 0 || maxQueueSize < 0) {
+			JOptionPane.showMessageDialog(null, "All values must be greater than 0");
+			return false;
+		}
+		
 		//Probabilities must add to 1
 		else if (firstProb + businessProb + premiumProb + economyProb != 1) {
 			JOptionPane.showMessageDialog(null, "The Probabilities need to total to 1");
