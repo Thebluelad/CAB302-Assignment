@@ -35,7 +35,8 @@ public class SimulationRunner {
 	 * @param args Arguments to the simulation - 
 	 * see {@link asgn2Simulators.SimulationRunner#printErrorAndExit()}
 	 */
-	XYSeriesCollection data;
+	XYSeriesCollection data1;
+	XYSeriesCollection data2;
 	
 	public static void main(String[] args) {
 		
@@ -154,14 +155,16 @@ public class SimulationRunner {
 		//GUISimulator gui = new GUISimulator("Aircraft Simulator");
 		//SwingUtilities.invokeLater(new GUISimulator("Aircraft Simulator"));
 		//gui.setBackground(new Color(238, 30, 238));
-		//XYSeriesCollection data = new XYSeriesCollection();
-		this.data = new XYSeriesCollection();
+		//XYSeriesCollection data1 = new XYSeriesCollection();
+		this.data1 = new XYSeriesCollection();
 		XYSeries first = new XYSeries("First");
 		XYSeries business = new XYSeries("Business");
 		XYSeries premium = new XYSeries("Premium");
 		XYSeries economy = new XYSeries("Economy");
 		XYSeries empty = new XYSeries("Empty");
 		XYSeries total = new XYSeries("Total Bookings");
+		XYSeries queueSize = new XYSeries("Total Queued");
+		XYSeries refusedSize = new XYSeries("Total Refused");
 		Flights flightsDaily;
 		Bookings daily;
 		
@@ -181,13 +184,15 @@ public class SimulationRunner {
 				economy.add(time, daily.getNumEconomy());
 				empty.add(time, daily.getAvailable());
 				total.add(time, daily.getTotal());
+				//this.sim.get
+				//queueSize.add();
+				//refusedSize.add();
 				
 				this.sim.processUpgrades(time);
 				this.sim.processQueue(time);
 				this.sim.flyPassengers(time);
 				this.sim.updateTotalCounts(time); 
 				this.log.logFlightEntries(time, sim);
-				
 				
 			} else {
 				this.sim.processQueue(time);
@@ -196,19 +201,23 @@ public class SimulationRunner {
 			this.log.logQREntries(time, this.sim);
 			this.log.logEntry(time,this.sim);
 		}
-		this.data.addSeries(first);
-		this.data.addSeries(economy);
-		this.data.addSeries(business);
-		this.data.addSeries(premium);
-		this.data.addSeries(empty);
-		this.data.addSeries(total);
+		this.data1.addSeries(first);
+		this.data1.addSeries(economy);
+		this.data1.addSeries(business);
+		this.data1.addSeries(premium);
+		this.data1.addSeries(empty);
+		this.data1.addSeries(total);
 		//gui.data = (XYDataset)data;
 		this.sim.finaliseQueuedAndCancelledPassengers(Constants.DURATION); 
 		this.log.logQREntries(Constants.DURATION, sim);
 		this.log.finalise(this.sim);
 	}
 	
-	XYDataset returnData() {
-		return (XYDataset)this.data;
+	XYDataset returnData1() {
+		return (XYDataset)this.data1;
+	}
+	
+	XYDataset returnData2() {
+		//return (XYDataset)this.data2;
 	}
 }

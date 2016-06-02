@@ -42,9 +42,10 @@ public class GUISimulator extends JFrame implements Runnable {
 	 * @throws HeadlessException
 	 */
 	JPanel mainPanel = new JPanel();
-	XYDataset data;// = createDataset();
-	JFreeChart chart;// = createChart(data);
-	ChartPanel chartPanel;// = new ChartPanel(chart);
+	XYDataset data1;
+	XYDataset data2;
+	JFreeChart chart;
+	ChartPanel chartPanel;
 	JPanel titlePanel = new JPanel();
 	JPanel bottomTextPanel = new JPanel();
 	JPanel bottomButtonPanel = new JPanel();
@@ -73,7 +74,8 @@ public class GUISimulator extends JFrame implements Runnable {
 	JTextField premiumTxt = new JTextField(Double.toString(Constants.DEFAULT_PREMIUM_PROB));
 	JTextField economyTxt = new JTextField(Double.toString(Constants.DEFAULT_ECONOMY_PROB));
 	
-	JButton btnTest = new JButton("Test");
+	JButton btnGraph1 = new JButton("Graph 1");
+	JButton btnGraph2 = new JButton("Graph 2");
 	JButton btnRunSimulation = new JButton("Run Simulation");
 	
 	//Frame used for the JDialog
@@ -89,18 +91,8 @@ public class GUISimulator extends JFrame implements Runnable {
 	
 	//Notes for the incredibly stupid.
 	/*
-	 * Need to make all the running happen here by creating a simulator from
-	 * either the Constants, or the values in the boxes. Then when the button
-	 * is pressed, the simulation should run and the results should be graphed.
-	 * The Simulation runner the main in this function needs to be called in
-	 * the SimulationRunner main (I think). This should all happen here with
-	 * the exception of the graphing results which should probably still
-	 * happen inside the Simulation Runner.
-	 * 
-	 * This function needs to set up it's own Simulation, Log, and Simulation
-	 * Runner classes though and be able to run independently from Simulation
-	 * Runner so it can be called whenever it needs to be used in Simulation
-	 * Runner.
+	 * Make sure the probs all add up to one and that no individual 
+	 * probability is greater than 1 or less than 0.
 	 */
 	
 	
@@ -117,21 +109,20 @@ public class GUISimulator extends JFrame implements Runnable {
 		}
 		
 		
-		btnTest.addActionListener(new ActionListener() {
+		btnGraph1.addActionListener(new ActionListener() {
 			  public void actionPerformed(ActionEvent e) {
-			    JDialog d = new JDialog(frame, "Hello", true);
-			    //d.setLocation(200, 200);
-			    d.setLocationRelativeTo(mainPanel);
-			    d.setSize(500, 500);
-			    d.setVisible(true);
-			    
-			    //Create the new simulator using arguments from the various text fields
+				  drawGraph1();
+			  }
+		});
+		
+		btnGraph2.addActionListener(new ActionListener() {
+			  public void actionPerformed(ActionEvent e) {
+				  drawGraph2();
 			  }
 		});
 		
 		btnRunSimulation.addActionListener(new ActionListener() {
 			  public void actionPerformed(ActionEvent e) {
-				  
 					try {
 						s = createSimulatorUsingValues();
 						l = new Log();
@@ -148,8 +139,10 @@ public class GUISimulator extends JFrame implements Runnable {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-				  data = sr.returnData();
-				  drawGraph();
+				  data1 = sr.returnData1();
+				  data2 = sr.returnData2();
+				  btnGraph1.setVisible(true);
+				  btnGraph2.setVisible(true);
 			  }
 		});
 		
@@ -157,14 +150,18 @@ public class GUISimulator extends JFrame implements Runnable {
 		seedLbl.setSize(305, 20);
 		seedLbl.setLocation(20, 700);
 		
-		//btnTest's setup code
-		btnTest.setBounds(100, 100, 100, 25);
+		//View option buttons setup
+		btnGraph1.setBounds(100, 100, 100, 25);
+		btnGraph1.setVisible(false);
+		btnGraph2.setBounds(100, 100, 100, 25);
+		btnGraph2.setVisible(false);
 		
 		//mainPanel's setup code
 		mainPanel.setBounds(0, 25, 700, 600);
 		mainPanel.setBackground(new Color(17, 55, 97));
 		//mainPanel.setLayout(null);
-		mainPanel.add(btnTest);
+		mainPanel.add(btnGraph1);
+		mainPanel.add(btnGraph2);
 		
 		//TitlePanel's setup code
 		titlePanel.setBounds(0, 0, 700, 25);
@@ -173,7 +170,8 @@ public class GUISimulator extends JFrame implements Runnable {
 		
 		//bottomTextPanel's setup code
 		bottomTextPanel.setBounds(0, 625, 700, 100);
-		bottomTextPanel.setBackground(new Color(200, 230, 255));
+		//bottomTextPanel.setBackground(new Color(200, 230, 255));
+		bottomTextPanel.setBackground(new Color(255, 255, 0));
 		
 		//bottomButtonPanel's setup code
 		bottomButtonPanel.setBounds(0, 725, 700, 75);
@@ -223,8 +221,17 @@ public class GUISimulator extends JFrame implements Runnable {
         return chart;
 	}
 	
-	private void drawGraph() {
-		chart = createChart(data);
+	private void drawGraph1() {
+		chart = createChart(data1);
+		chartPanel = new ChartPanel(chart);
+		mainPanel.remove(chartPanel);
+		mainPanel.add(chartPanel);
+		chartPanel.setLocation(25, 50);
+		chartPanel.setSize(650, 500);
+	}
+	
+	private void drawGraph2() {
+		chart = createChart(data2);
 		chartPanel = new ChartPanel(chart);
 		mainPanel.remove(chartPanel);
 		mainPanel.add(chartPanel);
