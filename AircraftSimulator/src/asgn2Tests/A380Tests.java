@@ -2,16 +2,21 @@ package asgn2Tests;
 
 import static org.junit.Assert.*;
 
+import java.awt.List;
+import java.util.ArrayList;
+
 import org.junit.Test;
 
 import asgn2Aircraft.A380;
 import asgn2Aircraft.AircraftException;
 import asgn2Aircraft.Bookings;
+import asgn2Passengers.Passenger;
 import asgn2Passengers.Business;
 import asgn2Passengers.Economy;
 import asgn2Passengers.First;
 import asgn2Passengers.PassengerException;
 import asgn2Passengers.Premium;
+import junit.framework.TestCase;
 
 public class A380Tests {
 	
@@ -481,6 +486,105 @@ public class A380Tests {
 		test.confirmBooking(testp, confirmationTime);
 		Bookings testb = test.getBookings();
 		assertTrue(testb.getAvailable() == 3);
+	}
+	
+	@Test 
+	public void getPassengersOnePassenger() throws PassengerException, AircraftException {
+		String  flightCode = "CNS-A380";
+		int bookingTime = 1;
+		int confirmationTime = 2;
+		int departureTime = 4;
+		Economy testp = new Economy(bookingTime, departureTime);
+		A380 test = new A380(flightCode, departureTime, 1, 1, 1, 1);
+		test.confirmBooking(testp, confirmationTime);
+		test.getPassengers();
+		java.util.List<Passenger> list2 = test.getPassengers();
+		assertTrue(list2.get(0) == testp);
+	}
+	
+	@Test 
+	public void getPassengersSecondPassenger() throws PassengerException, AircraftException {
+		String  flightCode = "CNS-A380";
+		int bookingTime = 1;
+		int confirmationTime = 2;
+		int departureTime = 4;
+		Economy teste = new Economy(bookingTime, departureTime);
+		Premium testp = new Premium(bookingTime, departureTime);
+		A380 test = new A380(flightCode, departureTime, 1, 1, 1, 1);
+		test.confirmBooking(teste, confirmationTime);
+		test.confirmBooking(testp, confirmationTime);
+		test.getPassengers();
+		java.util.List<Passenger> list2 = test.getPassengers();
+		assertTrue(list2.get(1) == testp);
+	}
+	@Test 
+	public void getPassengersThirdPassenger() throws PassengerException, AircraftException {
+		String  flightCode = "CNS-A380";
+		int bookingTime = 1;
+		int confirmationTime = 2;
+		int departureTime = 4;
+		Economy teste = new Economy(bookingTime, departureTime);
+		Premium testp = new Premium(bookingTime, departureTime);
+		Business testb = new Business(bookingTime, departureTime);
+		A380 test = new A380(flightCode, departureTime, 1, 1, 1, 1);
+		test.confirmBooking(teste, confirmationTime);
+		test.confirmBooking(testp, confirmationTime);
+		test.confirmBooking(testb, confirmationTime);
+		test.getPassengers();
+		java.util.List<Passenger> list2 = test.getPassengers();
+		assertTrue(list2.get(2) == testb);
+	}
+	
+	@Test 
+	public void getPassengersForthPassenger() throws PassengerException, AircraftException {
+		String  flightCode = "CNS-A380";
+		int bookingTime = 1;
+		int confirmationTime = 2;
+		int departureTime = 4;
+		Economy teste = new Economy(bookingTime, departureTime);
+		Premium testp = new Premium(bookingTime, departureTime);
+		Business testb = new Business(bookingTime, departureTime);
+		First testf = new First(bookingTime, departureTime);
+		A380 test = new A380(flightCode, departureTime, 1, 1, 1, 1);
+		test.confirmBooking(teste, confirmationTime);
+		test.confirmBooking(testp, confirmationTime);
+		test.confirmBooking(testb, confirmationTime);
+		test.confirmBooking(testf, confirmationTime);
+		test.getPassengers();
+		java.util.List<Passenger> list2 = test.getPassengers();
+		assertTrue(list2.get(3) == testf);
+	}
+	
+	@Test 
+	public void getPassengersSecondPassengerPersonCancel() throws PassengerException, AircraftException {
+		String  flightCode = "CNS-A380";
+		int bookingTime = 1;
+		int confirmationTime = 2;
+		int cancellationTime = 3;
+		int departureTime = 4;
+		Economy teste = new Economy(bookingTime, departureTime);
+		Premium testp = new Premium(bookingTime, departureTime);
+		Business testb = new Business(bookingTime, departureTime);
+		First testf = new First(bookingTime, departureTime);
+		A380 test = new A380(flightCode, departureTime, 1, 1, 1, 1);
+		test.confirmBooking(teste, confirmationTime);
+		test.confirmBooking(testp, confirmationTime);
+		test.confirmBooking(testb, confirmationTime);
+		test.confirmBooking(testf, confirmationTime);
+		test.cancelBooking(testp, cancellationTime);
+		test.getPassengers();
+		java.util.List<Passenger> list2 = test.getPassengers();
+		assertTrue(list2.get(1) == testb);
+	}
+	
+	@Test 
+	public void getPassengersNone() throws PassengerException, AircraftException {
+		String  flightCode = "CNS-A380";
+		int departureTime = 4;
+		A380 test = new A380(flightCode, departureTime, 1, 1, 1, 1);	
+		test.getPassengers();
+		java.util.List<Passenger> list2 = test.getPassengers();
+		assertTrue(list2.size() == 0);
 	}
 	
 	@Test
