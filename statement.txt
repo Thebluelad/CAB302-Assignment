@@ -1,0 +1,18 @@
+Assignment complete by:
+
+Matthew West (N9190325)
+Lucy Webster (N9154752)
+
+Part 1:
+Matthew completed the Aircraft class and Passenger test class.
+Lucy completed the Passenger class and the Aircraft test class.
+
+Part 2:
+Worked on together in person despite commits coming only from Matthew. This was done largely because of time restraints but also to decrease potential merge conflicts
+
+This is agreed by both students.
+
+Statement of completeness:
+All completed to the best of our knowledge. A known bug is that there is sometimes a blank log file outputted when the program is launched. The GUI has implemented both the Text ouput and both graph outputs.
+
+Command line arguments are also implemented. To trigger no GUI, the 10th argument must be "false".

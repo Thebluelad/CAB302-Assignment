@@ -1,0 +1,650 @@
+* 7acf30b : Final commit of the stuff we finished off today
+* d2e7469 : Finished off all testing
+* c5d5763 : Adding more tests
+* 82e613b : Some more of the gui stuff we were working on today
+* a244805 : The charting now works for user input
+* b1e240d : Added the beginning of the gui stuff
+* b77e26b : Some changes to a380Tests
+* 742a1bf : Added to the git ignore and made some small changes to the simulator
+* ee0a462 : Tidied boolean status in Passenger Class
+* 913aa59 : Started the simulator stuff. We now have a window
+* 06c8d59 : A380 Constructor tests
+* cbe47b5 : Made a small change to the getBookings function
+*   de701e2 : Merge branch 'master' of https://github.com/Thebluelad/CAB302-Assignment
+|\  
+| * c508003 : Finished upgradeBookings test, finallygit pull :)
+* | d25f4cc : Added the new documentation and Jim's change to the simulator
+|/  
+* bb268e7 : Fixed upgradeBookings function to check the classes in the correct order
+* a7e7ecd : Still errors in upgradeBookings test
+* 4c407a5 : Initialised num{class} variables
+*   ed2501d : Merge branch 'master' of https://github.com/Thebluelad/CAB302-Assignment
+|\  
+| * 2ff70f2 : Removed notes and changed formatting because apparently Jim is marking us based on his own coding style bias
+* | 27c83b2 : Updated some tests for changed methods, still stuck on upgradeBooking
+|/  
+* f134146 : Fixed adding and subtracting from passenger counters
+*   0203ddb : Fixed conflict
+|\  
+| * 781d9e9 : Fixed conflict
+| *   d8195d5 : Merge branch 'master' of https://github.com/Thebluelad/CAB302-Assignment
+| |\  
+| * | d8724a9 : Added Test, Stuck on upgradeBooking
+* | | bea5a78 : Added some notes to A380Tests for lucy
+| |/  
+|/|   
+* | c4ed67d : Commented out comment in A380Tests
+|/  
+* 9e8df94 : Documentation for PArt 2
+*   1b8b47c : Merge branch 'master' of https://github.com/Thebluelad/CAB302-Assignment
+|\  
+| * 76ec197 : Added more tests. Need to check confirmBooking with matt for testing and need to ask how to test upgradeBooking
+* | 35bc9e0 : Added the new documentation and the simulator classes
+|/  
+* 60cb500 : Added upgrade tests and a note on copyPassengerState and added a note to aircraft
+* 890b9ce : Fixed wasConfirmedand wasQueued
+* 9b56964 : Added more tests and found an error with the wasQueued and wasConfirmed functions
+* fab8bad : Fixed the errors
+* fca5508 : Found errors in seatsAvaliable
+* af57e3d : Testing
+* 19b34a9 : Added tests
+* 9d07b69 : Added tests for A380 tests
+* 7aed5d9 : Added more tests for the queuePassenger and refusePassenger functions
+* 3ced97d : Added more test information
+* fcb5330 : fixed error in cancelSeat
+* ff9dc63 : Fixed a small error in queuePassengerIsQueued() test and added a not to lucy in the passenger class
+* ef7731d : Test class created for A380
+* c24ddf9 : updated: refusePanssenger, queuePassenger, confirmSeat, cancelSeat
+* e3afd0b : Business, First, Premium Constructor updates
+* df39c97 : Added the changes we made just before the lecture
+* 76fe8fb : Fixed constructor economy
+* e42cc63 : Added more tests
+* eb813ae : Added more tests
+* 472bb2b : Added some more passenger tests
+* 12495d0 : Added more passengerTests and a note to Lucy about failing tests in Economy Class
+* 8d0d621 : Added a litle more to the passenger tests
+* 9f40739 : Wrote some Passenger tests
+* 653cdb8 : Completed upgrade in First class
+* b5c8563 : Completed upgrade in Business class
+* 7db0b71 : Completed upgrade in Premium class
+* 1626244 : completed copyPassengerState and Economy class. May need to be updated later
+* 4a0c006 :  push First and Premium constuctor
+* 67bd2a8 :  push Economy constuctor
+* d4a8b0f : Push flyPassenger
+*   322d989 : Merge branch 'master' of https://github.com/Thebluelad/CAB302-Assignment
+|\  
+| * 847c61a : Completed cancelSeat & confirmSeat. Might need debugging
+* | dc10bbf : Added the passenger test class
+|/  
+* a101a06 : Cleaned up the upgradeBookings function
+* d997d25 : Added tests package and completed the upgradeBookings function
+* 01baf74 : Completed refusePassenger
+* bc91c0f : Completed queuePassenger
+* c6555a6 : Updating work for queuePassenger and refusePassenger
+* bbdbe54 : Fixed queuePassenger
+* 317e99f : Completed the flyPassengers function
+* f358509 : Completed seatsAvailable function
+*   1989a4c : Merge branch 'master' of https://github.com/Thebluelad/CAB302-Assignment
+|\  
+| * 2acbb21 : Finished off A380 and B747
+| * e1645b2 : Added some notes to the upgradeBookings class just to put thoughts on paper
+| * 9d5ae95 : Fixed the previous .gitignore modification
+| * 62fe0dd : Added to .gitignore file
+* | 3e096ca : Business constructor, passanger bools, started queuePassenger. will need to debug some of these
+|/  
+* c52455e : Finished the majority of methods in Aircraft.java
+* eef062f : Adding authors again
+* 7603574 : Adding back in our changes after reclone
+* 2c3c2be : Adding in the new doc.. The hard way
+* 3a3ea29 : Added a .gitignore to fix DS_Store file sync
+* 5f91bfb : Finished the majority of the constructor and cancelBooking
+* d526fa5 : Added author
+* 0be2536 : Passenger class: public constructor and getters implemented
+* 7873717 : Added the source code given by Jim
+* 0a108e1 : Added initial files
+* 9c11a62 : Initial commitcommit 7acf30b34852668e4e853ac4b48ad9a7f648ac77
+Author: thematthewest <matt@thebluelad.local>
+Date:   Thu Jun 2 20:40:33 2016 +1000
+
+    Final commit of the stuff we finished off today
+
+commit d2e746957909db72ce230a76685e7614e53b13ad
+Author: lucywebster <lucelucy15@hotmail.com>
+Date:   Thu Jun 2 14:50:37 2016 +1000
+
+    Finished off all testing
+
+commit c5d576300b1a74c54ae3a1fc3edba5bd0217dc02
+Author: lucywebster <lucelucy15@hotmail.com>
+Date:   Thu Jun 2 14:30:54 2016 +1000
+
+    Adding more tests
+
+commit 82e613ba8597982630b856c601ef240103b6e1f3
+Author: thematthewest <matt@thebluelad.local>
+Date:   Thu Jun 2 14:30:30 2016 +1000
+
+    Some more of the gui stuff we were working on today
+
+commit a244805b397060080dd016054affde3d9c52cf64
+Author: thematthewest <matt@thebluelad.local>
+Date:   Thu Jun 2 11:33:32 2016 +1000
+
+    The charting now works for user input
+
+commit b1e240d9fe6f97330cc37e83e1ec7fff22182066
+Author: thematthewest <matt@thebluelad.local>
+Date:   Wed Jun 1 17:53:56 2016 +1000
+
+    Added the beginning of the gui stuff
+
+commit b77e26b0299bb8e1e9a47dc4e251b8aeb7bdd410
+Author: thematthewest <matt@thebluelad.local>
+Date:   Fri May 27 13:23:56 2016 +1000
+
+    Some changes to a380Tests
+
+commit 742a1bfa2666d20dfe44b5f5fcc0713686e68a52
+Author: thematthewest <matt@thebluelad.local>
+Date:   Wed May 25 17:37:36 2016 +1000
+
+    Added to the git ignore and made some small changes to the simulator
+
+commit ee0a462c6eea43646ac1012eac207f859bd780ff
+Author: lucywebster <lucelucy15@hotmail.com>
+Date:   Wed May 25 17:32:14 2016 +1000
+
+    Tidied boolean status in Passenger Class
+
+commit 913aa596fd1f519d25bdb9d305afbd2b8ffca916
+Author: thematthewest <matt@thebluelad.local>
+Date:   Wed May 25 16:29:38 2016 +1000
+
+    Started the simulator stuff. We now have a window
+
+commit 06c8d59cb2d6ff720765abb42b861165661328f7
+Author: lucywebster <lucelucy15@hotmail.com>
+Date:   Wed May 25 16:28:55 2016 +1000
+
+    A380 Constructor tests
+
+commit cbe47b51952886c19274b7665e628d2cf2dc9c2c
+Author: thematthewest <matt@thebluelad.local>
+Date:   Wed May 25 15:33:33 2016 +1000
+
+    Made a small change to the getBookings function
+
+commit de701e22aae786dd27b71206ddb1da3defdcc4a6
+Merge: d25f4cc c508003
+Author: thematthewest <matt@thebluelad.local>
+Date:   Wed May 25 14:13:57 2016 +1000
+
+    Merge branch 'master' of https://github.com/Thebluelad/CAB302-Assignment
+
+commit d25f4cc9b024ec448800d27ef578a9712acd939b
+Author: thematthewest <matt@thebluelad.local>
+Date:   Wed May 25 14:13:00 2016 +1000
+
+    Added the new documentation and Jim's change to the simulator
+
+commit c5080033bdf78800991819f7ddd2b87bb5afdecc
+Author: lucywebster <lucelucy15@hotmail.com>
+Date:   Wed May 25 13:51:30 2016 +1000
+
+    Finished upgradeBookings test, finallygit pull :)
+
+commit bb268e74cd83a6e55cf75fb5f2d05d9eb43eef18
+Author: thematthewest <matt@thebluelad.local>
+Date:   Wed May 25 13:32:37 2016 +1000
+
+    Fixed upgradeBookings function to check the classes in the correct order
+
+commit a7e7ecda0fc67c70bd5d20617a066c0fd890f3d6
+Author: lucywebster <lucelucy15@hotmail.com>
+Date:   Wed May 25 13:04:32 2016 +1000
+
+    Still errors in upgradeBookings test
+
+commit 4c407a5a600e54dc1074573718dd52002a57ac9a
+Author: thematthewest <matt@thebluelad.local>
+Date:   Wed May 25 13:00:15 2016 +1000
+
+    Initialised num{class} variables
+
+commit ed2501d04bc5224c98c77a628999f03ab17ef778
+Merge: 27c83b2 2ff70f2
+Author: lucywebster <lucelucy15@hotmail.com>
+Date:   Tue May 24 19:25:40 2016 +1000
+
+    Merge branch 'master' of https://github.com/Thebluelad/CAB302-Assignment
+
+commit 27c83b2e553f9df23384112b6df2b9d7b3064c3a
+Author: lucywebster <lucelucy15@hotmail.com>
+Date:   Tue May 24 19:25:16 2016 +1000
+
+    Updated some tests for changed methods, still stuck on upgradeBooking
+
+commit 2ff70f2043d1be801a6edcbfd86ddc9bd286cb03
+Author: thematthewest <matt@thebluelad.local>
+Date:   Tue May 24 19:00:43 2016 +1000
+
+    Removed notes and changed formatting because apparently Jim is marking us based on his own coding style bias
+
+commit f13414642692fb193236d4e54c3aec8a56c5a7b3
+Author: thematthewest <matt@thebluelad.local>
+Date:   Tue May 24 18:52:52 2016 +1000
+
+    Fixed adding and subtracting from passenger counters
+
+commit 0203ddb573802fb6b855d3974abf133e7a093b58
+Merge: bea5a78 781d9e9
+Author: thematthewest <matt@thebluelad.local>
+Date:   Tue May 24 18:38:33 2016 +1000
+
+    Fixed conflict
+
+commit bea5a780fe1ccaaea1454d5d2a43d47411c0005e
+Author: thematthewest <matt@thebluelad.local>
+Date:   Tue May 24 18:37:35 2016 +1000
+
+    Added some notes to A380Tests for lucy
+
+commit 781d9e9717cdacbe188ca66c457e38707473269f
+Author: lucywebster <lucelucy15@hotmail.com>
+Date:   Tue May 24 18:35:53 2016 +1000
+
+    Fixed conflict
+
+commit d8195d5a101ccbad1d2ef162336cf0b33404ea9d
+Merge: d8724a9 c4ed67d
+Author: lucywebster <lucelucy15@hotmail.com>
+Date:   Tue May 24 18:30:17 2016 +1000
+
+    Merge branch 'master' of https://github.com/Thebluelad/CAB302-Assignment
+
+commit d8724a9f60a44caa40c2af9e0402ad4005fb5b1e
+Author: lucywebster <lucelucy15@hotmail.com>
+Date:   Tue May 24 18:29:08 2016 +1000
+
+    Added Test, Stuck on upgradeBooking
+
+commit c4ed67d84bf58ad143076794b236ef6a217ab621
+Author: thematthewest <matt@thebluelad.local>
+Date:   Tue May 24 18:23:03 2016 +1000
+
+    Commented out comment in A380Tests
+
+commit 9e8df94948b98f51410e2dfb889f676318b120d0
+Author: lucywebster <lucelucy15@hotmail.com>
+Date:   Tue May 24 18:12:10 2016 +1000
+
+    Documentation for PArt 2
+
+commit 1b8b47c76613172982ee4f40fab3f0a125a6a56f
+Merge: 35bc9e0 76ec197
+Author: thematthewest <matt@thebluelad.local>
+Date:   Tue May 24 12:52:35 2016 +1000
+
+    Merge branch 'master' of https://github.com/Thebluelad/CAB302-Assignment
+
+commit 35bc9e0cea0d72f07cfe6073ed69a99d42e14be2
+Author: thematthewest <matt@thebluelad.local>
+Date:   Tue May 24 12:50:42 2016 +1000
+
+    Added the new documentation and the simulator classes
+
+commit 76ec1972e03618ce925cda4f50f70978ac83be21
+Author: lucywebster <lucelucy15@hotmail.com>
+Date:   Mon May 23 16:45:28 2016 +1000
+
+    Added more tests. Need to check confirmBooking with matt for testing and need to ask how to test upgradeBooking
+
+commit 60cb500ebaaa2399591a30d530802abcdc36451f
+Author: thematthewest <matt@thebluelad.local>
+Date:   Sun May 22 16:07:22 2016 +1000
+
+    Added upgrade tests and a note on copyPassengerState and added a note to aircraft
+
+commit 890b9ce2441c7fe556eb4c16ad6f7a904abb1566
+Author: lucywebster <lucelucy15@hotmail.com>
+Date:   Sun May 22 15:55:04 2016 +1000
+
+    Fixed wasConfirmedand wasQueued
+
+commit 9b5696427605f873226e8ff8e8b7f2a860511b5e
+Author: thematthewest <matt@thebluelad.local>
+Date:   Sun May 22 15:50:49 2016 +1000
+
+    Added more tests and found an error with the wasQueued and wasConfirmed functions
+
+commit fab8bad5fd476158a06e7c87d6491a5eb143fe52
+Author: thematthewest <matt@thebluelad.local>
+Date:   Sun May 22 15:19:11 2016 +1000
+
+    Fixed the errors
+
+commit fca55089f989f641f881d8e451066a405d63b043
+Author: lucywebster <lucelucy15@hotmail.com>
+Date:   Sun May 22 14:49:47 2016 +1000
+
+    Found errors in seatsAvaliable
+
+commit af57e3d2124f85dc2efe929d0963fa11d94ee705
+Author: thematthewest <matt@thebluelad.local>
+Date:   Sun May 22 14:49:03 2016 +1000
+
+    Testing
+
+commit 19b34a96f53200ca772a244cc8dec4c41ec898f3
+Author: lucywebster <lucelucy15@hotmail.com>
+Date:   Sun May 22 14:31:22 2016 +1000
+
+    Added tests
+
+commit 9d07b69e69b0c2281343a2b07d9bc5553e479589
+Author: lucywebster <lucelucy15@hotmail.com>
+Date:   Fri May 20 10:08:22 2016 +1000
+
+    Added tests for A380 tests
+
+commit 7aed5d98728d3a9f72dbd6e70b0cc5125057e9a8
+Author: thematthewest <matt@thebluelad.local>
+Date:   Fri May 20 09:33:16 2016 +1000
+
+    Added more tests for the queuePassenger and refusePassenger functions
+
+commit 3ced97d700d2146f8c4ba26cd9fece4ce5bdb81e
+Author: thematthewest <matt@thebluelad.local>
+Date:   Wed May 18 16:06:31 2016 +1000
+
+    Added more test information
+
+commit fcb5330df7bc53e25bfbfc6c13dd26185845bda5
+Author: lucywebster <lucelucy15@hotmail.com>
+Date:   Wed May 18 15:09:06 2016 +1000
+
+    fixed error in cancelSeat
+
+commit ff9dc63ad0e577ac73a0cba245f0d9904908e7fd
+Author: thematthewest <matt@thebluelad.local>
+Date:   Wed May 18 15:06:59 2016 +1000
+
+    Fixed a small error in queuePassengerIsQueued() test and added a not to lucy in the passenger class
+
+commit ef7731d93be1c265d62b3bd41ebfccd30621b291
+Author: lucywebster <lucelucy15@hotmail.com>
+Date:   Wed May 18 14:44:28 2016 +1000
+
+    Test class created for A380
+
+commit c24ddf92c956f850695857f7fb4c2d5f3bc7c24b
+Author: lucywebster <lucelucy15@hotmail.com>
+Date:   Wed May 18 14:17:11 2016 +1000
+
+    updated: refusePanssenger, queuePassenger, confirmSeat, cancelSeat
+
+commit e3afd0bed43ba74475b56f81951d9cba0e62435b
+Author: lucywebster <lucelucy15@hotmail.com>
+Date:   Wed May 18 14:07:03 2016 +1000
+
+    Business, First, Premium Constructor updates
+
+commit df39c97ee34b86dd1713b355f4f2dedd37e5ada0
+Author: thematthewest <matt@thebluelad.local>
+Date:   Wed May 18 14:00:42 2016 +1000
+
+    Added the changes we made just before the lecture
+
+commit 76fe8fbbea47e247fadddec6f9994a6afe0ed80b
+Author: lucywebster <lucelucy15@hotmail.com>
+Date:   Wed May 18 13:27:12 2016 +1000
+
+    Fixed constructor economy
+
+commit e42cc63af3a15aff5450cbce93541dd9d581c3f4
+Author: thematthewest <matt@thebluelad.local>
+Date:   Wed May 18 13:26:34 2016 +1000
+
+    Added more tests
+
+commit eb813aef51104ac78ef9b685a51292506f24fb08
+Author: thematthewest <matt@thebluelad.local>
+Date:   Wed May 18 13:01:15 2016 +1000
+
+    Added more tests
+
+commit 472bb2b5060d1a50f6d9bff9f7fe73076cd48e72
+Author: thematthewest <matt@thebluelad.local>
+Date:   Wed May 18 00:50:22 2016 +1000
+
+    Added some more passenger tests
+
+commit 12495d0b97dc40d29ca7670c18390bb014c9803f
+Author: thematthewest <matt@thebluelad.local>
+Date:   Tue May 17 21:24:43 2016 +1000
+
+    Added more passengerTests and a note to Lucy about failing tests in Economy Class
+
+commit 8d0d6214a7fe9656f5c78cc29345635732dc4438
+Author: thematthewest <matt@thebluelad.local>
+Date:   Tue May 17 12:10:12 2016 +1000
+
+    Added a litle more to the passenger tests
+
+commit 9f407392d0a581b6a9cf244647e2a153a6cdc52b
+Author: thematthewest <matt@thebluelad.local>
+Date:   Mon May 16 21:48:06 2016 +1000
+
+    Wrote some Passenger tests
+
+commit 653cdb82ae1562749bee13c9da89a7b355443841
+Author: lucywebster <lucelucy15@hotmail.com>
+Date:   Mon May 16 15:23:07 2016 +1000
+
+    Completed upgrade in First class
+
+commit b5c856370b1d9a15dde6ec4d7aed54d3d510798f
+Author: lucywebster <lucelucy15@hotmail.com>
+Date:   Mon May 16 15:21:04 2016 +1000
+
+    Completed upgrade in Business class
+
+commit 7db0b711ecf27458c92413c1b3e350ddf143c85c
+Author: lucywebster <lucelucy15@hotmail.com>
+Date:   Mon May 16 15:20:26 2016 +1000
+
+    Completed upgrade in Premium class
+
+commit 16262440977d23230175884a8847ade5366cdc60
+Author: lucywebster <lucelucy15@hotmail.com>
+Date:   Mon May 16 15:19:03 2016 +1000
+
+    completed copyPassengerState and Economy class. May need to be updated later
+
+commit 4a0c006d227276fb6b53cf8b581cf60a11538263
+Author: lucywebster <lucelucy15@hotmail.com>
+Date:   Mon May 16 13:14:13 2016 +1000
+
+     push First and Premium constuctor
+
+commit 67bd2a8fff98b503823c585934d025899e20b7ba
+Author: lucywebster <lucelucy15@hotmail.com>
+Date:   Mon May 16 13:12:24 2016 +1000
+
+     push Economy constuctor
+
+commit d4a8b0f9dbbded92ca73a8d5ad9268f61fe9c52c
+Author: lucywebster <lucelucy15@hotmail.com>
+Date:   Mon May 16 13:04:12 2016 +1000
+
+    Push flyPassenger
+
+commit 322d9898dd99e80da200e97c3c46dba66de159dd
+Merge: dc10bbf 847c61a
+Author: thematthewest <matt@thebluelad.local>
+Date:   Mon May 16 12:59:17 2016 +1000
+
+    Merge branch 'master' of https://github.com/Thebluelad/CAB302-Assignment
+
+commit dc10bbf1a4db50592449f40e921d04c5fccb649b
+Author: thematthewest <matt@thebluelad.local>
+Date:   Mon May 16 12:58:45 2016 +1000
+
+    Added the passenger test class
+
+commit 847c61acd4dc6b8ddff95f5ae0a83be4c8b618db
+Author: lucywebster <lucelucy15@hotmail.com>
+Date:   Mon May 16 12:57:01 2016 +1000
+
+    Completed cancelSeat & confirmSeat. Might need debugging
+
+commit a101a06492e956b2f2245b8e624d3757d4bb0d5c
+Author: thematthewest <matt@thebluelad.local>
+Date:   Mon May 16 12:55:49 2016 +1000
+
+    Cleaned up the upgradeBookings function
+
+commit d997d25d021e41ed867d4b4d6eb7c0b3c9e84182
+Author: thematthewest <matt@thebluelad.local>
+Date:   Mon May 16 12:50:49 2016 +1000
+
+    Added tests package and completed the upgradeBookings function
+
+commit 01baf74f3d74a41ae3c6aac1416e4cdeea5444ce
+Author: lucywebster <lucelucy15@hotmail.com>
+Date:   Mon May 16 12:38:12 2016 +1000
+
+    Completed refusePassenger
+
+commit bc91c0f53dd5ecc6c82791bd5754126873b195ee
+Author: lucywebster <lucelucy15@hotmail.com>
+Date:   Mon May 16 12:26:58 2016 +1000
+
+    Completed queuePassenger
+
+commit c6555a6d65511c9da8c801f1cf311ec5fb85713e
+Author: lucywebster <lucelucy15@hotmail.com>
+Date:   Mon May 16 12:15:05 2016 +1000
+
+    Updating work for queuePassenger and refusePassenger
+
+commit bbdbe549e8be159859990714083b8da311056aea
+Author: lucywebster <lucelucy15@hotmail.com>
+Date:   Mon May 16 11:57:15 2016 +1000
+
+    Fixed queuePassenger
+
+commit 317e99fd9200a4e72dd9fe56903eb0a22569d3ed
+Author: thematthewest <matt@thebluelad.local>
+Date:   Mon May 16 11:47:52 2016 +1000
+
+    Completed the flyPassengers function
+
+commit f35850957149f61f0232f97c8b641f8cd71c205f
+Author: thematthewest <matt@thebluelad.local>
+Date:   Mon May 16 11:44:38 2016 +1000
+
+    Completed seatsAvailable function
+
+commit 1989a4cbe1e083bd5154e199ae0333019e1658ca
+Merge: 3e096ca 2acbb21
+Author: lucywebster <lucelucy15@hotmail.com>
+Date:   Mon May 16 11:22:27 2016 +1000
+
+    Merge branch 'master' of https://github.com/Thebluelad/CAB302-Assignment
+
+commit 3e096ca9f066b593a2ff9b8db649e32e105467ed
+Author: lucywebster <lucelucy15@hotmail.com>
+Date:   Mon May 16 10:04:47 2016 +1000
+
+    Business constructor, passanger bools, started queuePassenger. will need to debug some of these
+
+commit 2acbb2102f949fb0eb83662c87eba05109b352cc
+Author: thematthewest <matt@thebluelad.local>
+Date:   Sat May 14 23:28:54 2016 +1000
+
+    Finished off A380 and B747
+
+commit e1645b22617a982787f4915eb426aa745286c24a
+Author: thematthewest <matt@thebluelad.local>
+Date:   Sat May 14 23:06:52 2016 +1000
+
+    Added some notes to the upgradeBookings class just to put thoughts on paper
+
+commit 9d5ae95b9aa06eaadc543d84f29022234ac57aea
+Author: thematthewest <matt@thebluelad.local>
+Date:   Sat May 14 19:24:26 2016 +1000
+
+    Fixed the previous .gitignore modification
+
+commit 62fe0dd5ca41b560ac80b6d8441dd50388b39434
+Author: thematthewest <matt@thebluelad.local>
+Date:   Sat May 14 19:23:22 2016 +1000
+
+    Added to .gitignore file
+
+commit c52455e04ce139f49319a02abb78c98a68fe87fb
+Author: thematthewest <matt@thebluelad.local>
+Date:   Sat May 14 15:27:43 2016 +1000
+
+    Finished the majority of methods in Aircraft.java
+
+commit eef062f378f78ec1d2892d42c29fd72c231668d8
+Author: thematthewest <matt@thebluelad.local>
+Date:   Sat May 14 14:46:14 2016 +1000
+
+    Adding authors again
+
+commit 76035744ee07f76eac3c063fcedf257d1a419506
+Author: thematthewest <matt@thebluelad.local>
+Date:   Sat May 14 14:42:09 2016 +1000
+
+    Adding back in our changes after reclone
+
+commit 2c3c2bebd6c075583b65b602e81b091c0234e476
+Author: thematthewest <matt@thebluelad.local>
+Date:   Sat May 14 14:37:46 2016 +1000
+
+    Adding in the new doc.. The hard way
+
+commit 3a3ea2919e4f32f8a9c52b76d80a7994cccb497b
+Author: thematthewest <matt@thebluelad.local>
+Date:   Sat May 14 14:19:37 2016 +1000
+
+    Added a .gitignore to fix DS_Store file sync
+
+commit 5f91bfb0eda3cf031d674799aec1f799d17280e8
+Author: thematthewest <matt@thebluelad.local>
+Date:   Sat May 14 10:33:55 2016 +1000
+
+    Finished the majority of the constructor and cancelBooking
+
+commit d526fa590b181842c932d8a5accc4d1a95ca0c32
+Author: lucywebster <lucelucy15@hotmail.com>
+Date:   Wed May 11 19:41:54 2016 +1000
+
+    Added author
+
+commit 0be25366e7802eda186aa7966e9010ebea6ff17e
+Author: Lucy Webster <lucy@Lucys-MacBook-Pro-2.local>
+Date:   Wed May 11 19:10:11 2016 +1000
+
+    Passenger class: public constructor and getters implemented
+
+commit 7873717fbf6c5069a2e0868be014f1d60838ed47
+Author: thematthewest <matt@thebluelad.local>
+Date:   Mon May 9 23:47:46 2016 +1000
+
+    Added the source code given by Jim
+
+commit 0a108e1d972ccb8b01166350fe6f100f6cc327a4
+Author: Lucy Webster <lucy@Lucys-MacBook-Pro-2.local>
+Date:   Mon May 9 11:39:41 2016 +1000
+
+    Added initial files
+
+commit 9c11a6267a245c29111a77e48ff901e7c4c9021b
+Author: Matthew West <thematthew.west@gmail.com>
+Date:   Mon May 9 11:36:48 2016 +1000
+
+    Initial commit
