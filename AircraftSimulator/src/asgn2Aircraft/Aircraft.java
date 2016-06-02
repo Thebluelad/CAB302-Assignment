@@ -150,12 +150,6 @@ public abstract class Aircraft {
 		
 		//PassengerException - if isConfirmed(this) OR isRefused(this) OR isFlown(this) OR (confirmationTime < 0) OR (departureTime < confirmationTime)
 		if (p.isConfirmed() || p.isRefused() || p.isFlown() || p.getConfirmationTime() < 0 || this.departureTime < p.getConfirmationTime()) {
-			System.out.println(p.isConfirmed());
-			System.out.println(p.isRefused());
-			System.out.println(p.isFlown());
-			System.out.println(p.getConfirmationTime());
-			System.out.println(this.departureTime);
-			System.out.println(p.getConfirmationTime());
 			throw new PassengerException("Invalid passenger");
 		}
 		

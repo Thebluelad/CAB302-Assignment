@@ -6,6 +6,7 @@ import org.junit.Test;
 
 import asgn2Aircraft.A380;
 import asgn2Aircraft.AircraftException;
+import asgn2Aircraft.Bookings;
 import asgn2Passengers.Business;
 import asgn2Passengers.Economy;
 import asgn2Passengers.First;
@@ -355,6 +356,131 @@ public class A380Tests {
 		test.cancelBooking(testp, cancellationTime);
 		test.flyPassengers(departureTime);
 		assertFalse(testp.isFlown());
+	}
+	
+	@Test
+	public void getBookingsOneEconomy() throws PassengerException, AircraftException{
+		String  flightCode = "CNS-A380";
+		int bookingTime = 1;
+		int confirmationTime = 2;
+		int departureTime = 4;
+		Economy testp = new Economy(bookingTime, departureTime);
+		A380 test = new A380(flightCode, departureTime, 1, 1, 1, 1);
+		test.confirmBooking(testp, confirmationTime);
+		Bookings testb = test.getBookings();
+		assertTrue(testb.getNumEconomy() == 1);
+	}
+	
+	@Test
+	public void getBookingsNoBusiness() throws PassengerException, AircraftException{
+		String  flightCode = "CNS-A380";
+		int bookingTime = 1;
+		int confirmationTime = 2;
+		int departureTime = 4;
+		Economy testp = new Economy(bookingTime, departureTime);
+		A380 test = new A380(flightCode, departureTime, 1, 1, 1, 1);
+		test.confirmBooking(testp, confirmationTime);
+		Bookings testb = test.getBookings();
+		assertTrue(testb.getNumBusiness() == 0);
+	}
+	
+	@Test
+	public void getBookingsNoPremium() throws PassengerException, AircraftException{
+		String  flightCode = "CNS-A380";
+		int bookingTime = 1;
+		int confirmationTime = 2;
+		int departureTime = 4;
+		Economy testp = new Economy(bookingTime, departureTime);
+		A380 test = new A380(flightCode, departureTime, 1, 1, 1, 1);
+		test.confirmBooking(testp, confirmationTime);
+		Bookings testb = test.getBookings();
+		assertTrue(testb.getNumPremium() == 0);
+	}
+	
+	@Test
+	public void getBookingsNoFirst() throws PassengerException, AircraftException{
+		String  flightCode = "CNS-A380";
+		int bookingTime = 1;
+		int confirmationTime = 2;
+		int departureTime = 4;
+		Economy testp = new Economy(bookingTime, departureTime);
+		A380 test = new A380(flightCode, departureTime, 1, 1, 1, 1);
+		test.confirmBooking(testp, confirmationTime);
+		Bookings testb = test.getBookings();
+		assertTrue(testb.getNumFirst() == 0);
+	}
+	
+	@Test
+	public void getBookingsFourTotal() throws PassengerException, AircraftException{
+		String  flightCode = "CNS-A380";
+		int bookingTime = 1;
+		int confirmationTime = 2;
+		int departureTime = 4;
+		Economy teste = new Economy(bookingTime, departureTime);
+		Premium testp = new Premium(bookingTime, departureTime);
+		Business testbus = new Business (bookingTime, departureTime);
+		First testf = new First (bookingTime, departureTime);
+		A380 test = new A380(flightCode, departureTime, 1, 1, 1, 1);
+		test.confirmBooking(testp, confirmationTime);
+		test.confirmBooking(testf, confirmationTime);
+		test.confirmBooking(testbus, confirmationTime);
+		test.confirmBooking(teste, confirmationTime);
+		Bookings testb = test.getBookings();
+		assertTrue(testb.getTotal() == 4);
+	}
+	
+	@Test
+	public void getBookingsOneTotal () throws PassengerException, AircraftException{
+		String  flightCode = "CNS-A380";
+		int bookingTime = 1;
+		int confirmationTime = 2;
+		int departureTime = 4;
+		Economy testp = new Economy(bookingTime, departureTime);
+		A380 test = new A380(flightCode, departureTime, 1, 1, 1, 1);
+		test.confirmBooking(testp, confirmationTime);
+		Bookings testb = test.getBookings();
+		assertTrue(testb.getTotal() == 1);
+	}
+	
+	@Test
+	public void getBookingsNoneTotal () throws PassengerException, AircraftException{
+		String  flightCode = "CNS-A380";
+		int departureTime = 4;
+		A380 test = new A380(flightCode, departureTime, 1, 1, 1, 1);
+		Bookings testb = test.getBookings();
+		assertTrue(testb.getTotal() == 0);
+	}
+	
+	@Test
+	public void getBookingsNoneAvaliable() throws PassengerException, AircraftException{
+		String  flightCode = "CNS-A380";
+		int bookingTime = 1;
+		int confirmationTime = 2;
+		int departureTime = 4;
+		Economy teste = new Economy(bookingTime, departureTime);
+		Premium testp = new Premium(bookingTime, departureTime);
+		Business testbus = new Business (bookingTime, departureTime);
+		First testf = new First (bookingTime, departureTime);
+		A380 test = new A380(flightCode, departureTime, 1, 1, 1, 1);
+		test.confirmBooking(testp, confirmationTime);
+		test.confirmBooking(testf, confirmationTime);
+		test.confirmBooking(testbus, confirmationTime);
+		test.confirmBooking(teste, confirmationTime);
+		Bookings testb = test.getBookings();
+		assertTrue(testb.getAvailable() == 0);
+	}
+	
+	@Test
+	public void getBookingsThreeAvaliable() throws PassengerException, AircraftException{
+		String  flightCode = "CNS-A380";
+		int bookingTime = 1;
+		int confirmationTime = 2;
+		int departureTime = 4;
+		Economy testp = new Economy(bookingTime, departureTime);
+		A380 test = new A380(flightCode, departureTime, 1, 1, 1, 1);
+		test.confirmBooking(testp, confirmationTime);
+		Bookings testb = test.getBookings();
+		assertTrue(testb.getAvailable() == 3);
 	}
 	
 	@Test
