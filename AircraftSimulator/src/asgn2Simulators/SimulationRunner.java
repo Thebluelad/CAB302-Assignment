@@ -6,17 +6,12 @@
  */
 package asgn2Simulators;
 
-import java.awt.Color;
 import java.io.IOException;
-
-import javax.swing.JFrame;
-import javax.swing.SwingUtilities;
 
 import org.jfree.data.xy.XYDataset;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
-import asgn2Aircraft.Aircraft;
 import asgn2Aircraft.AircraftException;
 import asgn2Aircraft.Bookings;
 import asgn2Passengers.PassengerException;
@@ -37,34 +32,41 @@ public class SimulationRunner {
 	 */
 	XYSeriesCollection data1;
 	XYSeriesCollection data2;
+	String textOutput;
 	
 	public static void main(String[] args) {
 		
 		//Think I'm going to need to edit this heaps
 		
 		final int NUM_ARGS = 9; 
-		//Simulator s = null; 
-		//Log l = null; 
+		Simulator s = null; 
+		Log l = null; 
 		
-		//try {
+		try {
 			switch (args.length) {
 				case NUM_ARGS: {
-					//s = createSimulatorUsingArgs(args);
 					new GUISimulator("Aircraft Simulator");
 					break;
 				}
 				case 0: {
-					//s = new Simulator();
 					new GUISimulator("Aircraft Simulator");
 					break;
 				}
-				//Case 10 was added by me but not sure if it should stay.
+				//Case 10: False triggers the command line
 				case 10: {
-					if (args[9].compareTo("true") == 0){
-						//run the gui
-						//GUISimulator gui = new GUISimulator("Aircraft Simulator");
+					if (args[9].compareTo("false") == 0) {
+						s = createSimulatorUsingArgs(args);
+						l = new Log();
+						
+						SimulationRunner sr = new SimulationRunner(s,l);
+						try {
+							sr.runSimulation();
+						} catch (Exception e) {
+							e.printStackTrace();
+							System.exit(-1);
+						} 
 					} else {
-						//run the simulator only
+						new GUISimulator("Aircraft Simulator");
 					}
 					break;	
 				}
@@ -72,20 +74,13 @@ public class SimulationRunner {
 					printErrorAndExit(); 
 				}
 			}
-			//l = new Log();
-//		} catch (SimulationException | IOException e1) {
-//			e1.printStackTrace();
-//			System.exit(-1);
+			
+		} catch (SimulationException | IOException e1) {
+			e1.printStackTrace();
+			System.exit(-1);
 		}
+	}
 	
-		//Run the simulation 
-//		SimulationRunner sr = new SimulationRunner(s,l);
-//		try {
-//			sr.runSimulation();
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			System.exit(-1);
-//		} 
 	/**
 	 * Helper to process args for Simulator  
 	 * 
@@ -149,14 +144,9 @@ public class SimulationRunner {
 		this.sim.createSchedule();
 		this.log.initialEntry(this.sim);
 		
-		//Not sure if the following line actually does anything
-		//JFrame.setDefaultLookAndFeelDecorated(true);
-		
-		//GUISimulator gui = new GUISimulator("Aircraft Simulator");
-		//SwingUtilities.invokeLater(new GUISimulator("Aircraft Simulator"));
-		//gui.setBackground(new Color(238, 30, 238));
-		//XYSeriesCollection data1 = new XYSeriesCollection();
+		//Initialising the datasets and series objects
 		this.data1 = new XYSeriesCollection();
+		this.data2 = new XYSeriesCollection();
 		XYSeries first = new XYSeries("First");
 		XYSeries business = new XYSeries("Business");
 		XYSeries premium = new XYSeries("Premium");
@@ -165,8 +155,13 @@ public class SimulationRunner {
 		XYSeries total = new XYSeries("Total Bookings");
 		XYSeries queueSize = new XYSeries("Total Queued");
 		XYSeries refusedSize = new XYSeries("Total Refused");
+		
+		//Objects to contain daily flights and bookings
 		Flights flightsDaily;
 		Bookings daily;
+		
+		//Header for the text output string
+		this.textOutput = "The values for each class on a given day: \n\n";
 		
 		//Main simulation loop 
 		for (int time=0; time<=Constants.DURATION; time++) {
@@ -174,8 +169,13 @@ public class SimulationRunner {
 			this.sim.rebookCancelledPassengers(time); 
 			this.sim.generateAndHandleBookings(time);
 			this.sim.processNewCancellations(time);
+			
+			//Adding to the queue and refused series
+			queueSize.add(time, this.sim.numInQueue());
+			refusedSize.add(time, this.sim.numRefused());
+			
 			if (time >= Constants.FIRST_FLIGHT) {
-				//GUI stuff
+				//Collecting data and adding to the series
 				flightsDaily = this.sim.getFlights(time);
 				daily = flightsDaily.getCurrentCounts();
 				first.add(time, daily.getNumFirst());
@@ -184,10 +184,18 @@ public class SimulationRunner {
 				economy.add(time, daily.getNumEconomy());
 				empty.add(time, daily.getAvailable());
 				total.add(time, daily.getTotal());
-				//this.sim.get
-				//queueSize.add();
-				//refusedSize.add();
 				
+				//Collecting data and adding to the text output string
+				this.textOutput += ("The current day is: " + time + "\n");
+				this.textOutput += ("First: " + daily.getNumFirst() + "\n");
+				this.textOutput += ("Business: " + daily.getNumBusiness() + "\n");
+				this.textOutput += ("Premium: " + daily.getNumPremium() + "\n");
+				this.textOutput += ("Economy: " + daily.getNumEconomy() + "\n");
+				this.textOutput += ("Queued: " + this.sim.numInQueue() + "\n");
+				this.textOutput += ("Refused: " + this.sim.numRefused() + "\n");
+				this.textOutput += ("End of day: " + time + "\n\n");
+				
+				this.sim.getStatus(time);
 				this.sim.processUpgrades(time);
 				this.sim.processQueue(time);
 				this.sim.flyPassengers(time);
@@ -201,23 +209,45 @@ public class SimulationRunner {
 			this.log.logQREntries(time, this.sim);
 			this.log.logEntry(time,this.sim);
 		}
+		//Adding the series to the dataset
 		this.data1.addSeries(first);
 		this.data1.addSeries(economy);
 		this.data1.addSeries(business);
 		this.data1.addSeries(premium);
 		this.data1.addSeries(empty);
 		this.data1.addSeries(total);
-		//gui.data = (XYDataset)data;
+		this.data2.addSeries(queueSize);
+		this.data2.addSeries(refusedSize);
+		
 		this.sim.finaliseQueuedAndCancelledPassengers(Constants.DURATION); 
 		this.log.logQREntries(Constants.DURATION, sim);
 		this.log.finalise(this.sim);
 	}
 	
-	XYDataset returnData1() {
+	/**
+	 * Method to get the data1's dataset
+	 * 
+	 * @return XYDataset containing data1's data
+	 */
+	public XYDataset returnData1() {
 		return (XYDataset)this.data1;
 	}
 	
-	XYDataset returnData2() {
-		//return (XYDataset)this.data2;
+	/**
+	 * Method to get data2's dataset
+	 * 
+	 * @return XYDataset containing data2's data
+	 */
+	public XYDataset returnData2() {
+		return (XYDataset)this.data2;
+	}
+	
+	/**
+	 * Method to get the textOutput
+	 * 
+	 * @return String containing the text output
+	 */
+	public String returnTextOutput() {
+		return this.textOutput;
 	}
 }
