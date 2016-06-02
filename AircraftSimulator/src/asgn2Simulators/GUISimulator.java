@@ -27,6 +27,7 @@ import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
 import asgn2Aircraft.AircraftException;
+import asgn2Aircraft.Bookings;
 import asgn2Passengers.PassengerException;
 
 /**
@@ -48,6 +49,10 @@ public class GUISimulator extends JFrame implements Runnable {
 	JPanel bottomTextPanel = new JPanel();
 	JPanel bottomButtonPanel = new JPanel();
 	
+	Simulator s = null;
+	Log l = null;
+	SimulationRunner sr;
+	
 	
 	JLabel title = new JLabel("GUI For Aircraft Simulator");
 	JLabel seedLbl = new JLabel("Seed:");
@@ -60,9 +65,9 @@ public class GUISimulator extends JFrame implements Runnable {
 	JLabel economyLbl = new JLabel("Economy:");
 	
 	JTextField seedTxt = new JTextField(Integer.toString(Constants.DEFAULT_SEED));
-	JTextField dailyMeanTxt = new JTextField(Double.toString(Constants.DEFAULT_DAILY_BOOKING_MEAN));
 	JTextField queueSizeTxt = new JTextField(Integer.toString(Constants.DEFAULT_MAX_QUEUE_SIZE));
-	JTextField cancellationTxt = new JTextField(Integer.toString(Constants.CANCELLATION_PERIOD));
+	JTextField dailyMeanTxt = new JTextField(Double.toString(Constants.DEFAULT_DAILY_BOOKING_MEAN));
+	JTextField cancellationTxt = new JTextField(Double.toString(Constants.DEFAULT_CANCELLATION_PROB));
 	JTextField firstTxt = new JTextField(Double.toString(Constants.DEFAULT_FIRST_PROB));
 	JTextField businessTxt = new JTextField(Double.toString(Constants.DEFAULT_BUSINESS_PROB));
 	JTextField premiumTxt = new JTextField(Double.toString(Constants.DEFAULT_PREMIUM_PROB));
@@ -79,8 +84,38 @@ public class GUISimulator extends JFrame implements Runnable {
 //	JOptionPane.showInputDialog(null, "Add some input");
 //	JOptionPane.showMessageDialog(null, "This is the message");
 	
+	
+	
+	
+	//Notes for the incredibly stupid.
+	/*
+	 * Need to make all the running happen here by creating a simulator from
+	 * either the Constants, or the values in the boxes. Then when the button
+	 * is pressed, the simulation should run and the results should be graphed.
+	 * The Simulation runner the main in this function needs to be called in
+	 * the SimulationRunner main (I think). This should all happen here with
+	 * the exception of the graphing results which should probably still
+	 * happen inside the Simulation Runner.
+	 * 
+	 * This function needs to set up it's own Simulation, Log, and Simulation
+	 * Runner classes though and be able to run independently from Simulation
+	 * Runner so it can be called whenever it needs to be used in Simulation
+	 * Runner.
+	 */
+	
+	
+	
+	
 	public GUISimulator(String arg0) throws HeadlessException {
 		super(arg0);      
+		
+		try {
+			s = new Simulator();
+			l = new Log();
+		} catch (SimulationException | IOException e2) {
+			e2.printStackTrace();
+		}
+		
 		
 		btnTest.addActionListener(new ActionListener() {
 			  public void actionPerformed(ActionEvent e) {
@@ -96,7 +131,25 @@ public class GUISimulator extends JFrame implements Runnable {
 		
 		btnRunSimulation.addActionListener(new ActionListener() {
 			  public void actionPerformed(ActionEvent e) {
-				 drawGraph();
+				  
+					try {
+						s = createSimulatorUsingValues();
+						l = new Log();
+					} catch (Exception e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					
+				 
+				  sr = new SimulationRunner(s, l);
+				  try {
+					sr.runSimulation();
+				} catch (AircraftException | PassengerException | SimulationException | IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				  data = sr.returnData();
+				  drawGraph();
 			  }
 		});
 		
@@ -154,47 +207,6 @@ public class GUISimulator extends JFrame implements Runnable {
 		this.setVisible(true);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
-	
-
-	private XYDataset createDataset() {
-		//Creates the dataset
-		final XYSeries series1 = new XYSeries("First");
-        series1.add(1.0, 1.0);
-        series1.add(2.0, 4.0);
-        series1.add(3.0, 3.0);
-        series1.add(4.0, 5.0);
-        series1.add(5.0, 5.0);
-        series1.add(6.0, 7.0);
-        series1.add(7.0, 7.0);
-        series1.add(8.0, 8.0);
-        
-        final XYSeries series2 = new XYSeries("Second");
-        series2.add(1.0, 5.0);
-        series2.add(2.0, 7.0);
-        series2.add(3.0, 6.0);
-        series2.add(4.0, 8.0);
-        series2.add(5.0, 4.0);
-        series2.add(6.0, 4.0);
-        series2.add(7.0, 2.0);
-        series2.add(8.0, 1.0);
-
-        final XYSeries series3 = new XYSeries("Third");
-        series3.add(3.0, 4.0);
-        series3.add(4.0, 3.0);
-        series3.add(5.0, 2.0);
-        series3.add(6.0, 3.0);
-        series3.add(7.0, 6.0);
-        series3.add(8.0, 3.0);
-        series3.add(9.0, 4.0);
-        series3.add(10.0, 3.0);
-        
-        final XYSeriesCollection dataset = new XYSeriesCollection();
-        dataset.addSeries(series1);
-        dataset.addSeries(series2);
-        dataset.addSeries(series3);
-		return dataset;
-	}
-
 
 	private JFreeChart createChart(XYDataset data) {
 		// create the chart...
@@ -214,6 +226,7 @@ public class GUISimulator extends JFrame implements Runnable {
 	private void drawGraph() {
 		chart = createChart(data);
 		chartPanel = new ChartPanel(chart);
+		mainPanel.remove(chartPanel);
 		mainPanel.add(chartPanel);
 		chartPanel.setLocation(25, 50);
 		chartPanel.setSize(650, 500);
@@ -231,10 +244,32 @@ public class GUISimulator extends JFrame implements Runnable {
 	/**
 	 * @param args
 	 */
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		//JFrame.setDefaultLookAndFeelDecorated(true);
-        //SwingUtilities.invokeLater(new GUISimulator("Aircraft Simulator"));
-	}
+//	public static void main(String[] args) {
+//		// TODO Auto-generated method stub
+//		//JFrame.setDefaultLookAndFeelDecorated(true);
+//        SwingUtilities.invokeLater(new GUISimulator("Aircraft Simulator"));
+//	}
+	
+	//Method to create a simulator using the values given in the gui
+		private Simulator createSimulatorUsingValues() throws Exception {
+			int seed, maxQueueSize;
+			double meanBookings, sdBookings, firstProb, businessProb, premiumProb, economyProb, cancelProb;
+			try {
+				seed = Integer.parseInt(this.seedTxt.getText());
+				maxQueueSize = Integer.parseInt(this.queueSizeTxt.getText());
+				meanBookings = Double.parseDouble(this.dailyMeanTxt.getText());
+				sdBookings = 0.33 * meanBookings;
+				firstProb = Double.parseDouble(this.firstTxt.getText());
+				businessProb = Double.parseDouble(this.businessTxt.getText());
+				premiumProb = Double.parseDouble(this.premiumTxt.getText());
+				economyProb = Double.parseDouble(this.economyTxt.getText());
+				cancelProb = Double.parseDouble(this.cancellationTxt.getText());
+			} catch(Exception e) {
+				throw new Exception("The values entered are not the correct format");
+			}
+				
+			return new Simulator(seed,maxQueueSize,meanBookings,sdBookings,firstProb,businessProb,
+							  premiumProb,economyProb,cancelProb);	
+		}
 
 }

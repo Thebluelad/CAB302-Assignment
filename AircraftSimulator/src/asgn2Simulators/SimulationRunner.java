@@ -35,24 +35,26 @@ public class SimulationRunner {
 	 * @param args Arguments to the simulation - 
 	 * see {@link asgn2Simulators.SimulationRunner#printErrorAndExit()}
 	 */
+	XYSeriesCollection data;
+	
 	public static void main(String[] args) {
 		
 		//Think I'm going to need to edit this heaps
 		
 		final int NUM_ARGS = 9; 
-		Simulator s = null; 
-		Log l = null; 
+		//Simulator s = null; 
+		//Log l = null; 
 		
-		try {
+		//try {
 			switch (args.length) {
 				case NUM_ARGS: {
-					s = createSimulatorUsingArgs(args);
-					//GUISimulator gui = new GUISimulator("Aircraft Simulator");
+					//s = createSimulatorUsingArgs(args);
+					new GUISimulator("Aircraft Simulator");
 					break;
 				}
 				case 0: {
-					s = new Simulator();
-					//GUISimulator gui = new GUISimulator("Aircraft Simulator");
+					//s = new Simulator();
+					new GUISimulator("Aircraft Simulator");
 					break;
 				}
 				//Case 10 was added by me but not sure if it should stay.
@@ -69,21 +71,20 @@ public class SimulationRunner {
 					printErrorAndExit(); 
 				}
 			}
-			l = new Log();
-		} catch (SimulationException | IOException e1) {
-			e1.printStackTrace();
-			System.exit(-1);
+			//l = new Log();
+//		} catch (SimulationException | IOException e1) {
+//			e1.printStackTrace();
+//			System.exit(-1);
 		}
 	
 		//Run the simulation 
-		SimulationRunner sr = new SimulationRunner(s,l);
-		try {
-			sr.runSimulation();
-		} catch (Exception e) {
-			e.printStackTrace();
-			System.exit(-1);
-		} 
-	}
+//		SimulationRunner sr = new SimulationRunner(s,l);
+//		try {
+//			sr.runSimulation();
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			System.exit(-1);
+//		} 
 	/**
 	 * Helper to process args for Simulator  
 	 * 
@@ -150,16 +151,19 @@ public class SimulationRunner {
 		//Not sure if the following line actually does anything
 		//JFrame.setDefaultLookAndFeelDecorated(true);
 		
-		GUISimulator gui = new GUISimulator("Aircraft Simulator");
+		//GUISimulator gui = new GUISimulator("Aircraft Simulator");
 		//SwingUtilities.invokeLater(new GUISimulator("Aircraft Simulator"));
-		gui.setBackground(new Color(238, 30, 238));
-		XYSeriesCollection data = new XYSeriesCollection();
+		//gui.setBackground(new Color(238, 30, 238));
+		//XYSeriesCollection data = new XYSeriesCollection();
+		this.data = new XYSeriesCollection();
 		XYSeries first = new XYSeries("First");
 		XYSeries business = new XYSeries("Business");
 		XYSeries premium = new XYSeries("Premium");
 		XYSeries economy = new XYSeries("Economy");
 		XYSeries empty = new XYSeries("Empty");
 		XYSeries total = new XYSeries("Total Bookings");
+		Flights flightsDaily;
+		Bookings daily;
 		
 		//Main simulation loop 
 		for (int time=0; time<=Constants.DURATION; time++) {
@@ -168,13 +172,13 @@ public class SimulationRunner {
 			this.sim.generateAndHandleBookings(time);
 			this.sim.processNewCancellations(time);
 			if (time >= Constants.FIRST_FLIGHT) {
-				//GUI stuff 
-				Flights flightsDaily = sim.getFlights(time);
-				Bookings daily = flightsDaily.getCurrentCounts();
+				//GUI stuff
+				flightsDaily = this.sim.getFlights(time);
+				daily = flightsDaily.getCurrentCounts();
 				first.add(time, daily.getNumFirst());
 				business.add(time, daily.getNumBusiness());
-				economy.add(time, daily.getNumEconomy());
 				premium.add(time, daily.getNumPremium());
+				economy.add(time, daily.getNumEconomy());
 				empty.add(time, daily.getAvailable());
 				total.add(time, daily.getTotal());
 				
@@ -183,22 +187,28 @@ public class SimulationRunner {
 				this.sim.flyPassengers(time);
 				this.sim.updateTotalCounts(time); 
 				this.log.logFlightEntries(time, sim);
+				
+				
 			} else {
 				this.sim.processQueue(time);
 			}
 			//Log progress 
-			this.log.logQREntries(time, sim);
+			this.log.logQREntries(time, this.sim);
 			this.log.logEntry(time,this.sim);
 		}
-		data.addSeries(first);
-		data.addSeries(economy);
-		data.addSeries(business);
-		data.addSeries(premium);
-		data.addSeries(empty);
-		data.addSeries(total);
-		gui.data = (XYDataset)data;
+		this.data.addSeries(first);
+		this.data.addSeries(economy);
+		this.data.addSeries(business);
+		this.data.addSeries(premium);
+		this.data.addSeries(empty);
+		this.data.addSeries(total);
+		//gui.data = (XYDataset)data;
 		this.sim.finaliseQueuedAndCancelledPassengers(Constants.DURATION); 
 		this.log.logQREntries(Constants.DURATION, sim);
 		this.log.finalise(this.sim);
+	}
+	
+	XYDataset returnData() {
+		return (XYDataset)this.data;
 	}
 }
